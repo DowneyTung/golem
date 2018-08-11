@@ -1,0 +1,27 @@
+14:32:17.018 INFO Test execution started: navigate_to_campsite_test
+14:32:17.021 INFO Browser: chrome
+14:32:17.028 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+14:32:26.001 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+14:32:26.588 INFO Write 'Frog Pond' in element input-text
+14:32:26.680 INFO Click search-btn-container
+14:32:47.270 INFO Take screenshot error
+14:32:47.281 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py", line 12, in test
+    verify_text_in_element(search_page.first_result_header, data.expected_value)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 740, in verify_text_in_element
+    webelement = browser.get_browser().find(element)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/extended_driver.py", line 9, in find
+    return common._find(self, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 122, in _find
+    element_name, timeout, wait_displayed)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 47, in _find_webelement
+    .format(element_name, selector_type, selector_value))
+golem.core.exceptions.ElementNotFound: Element result-header not found using selector class:'result-header'
+14:32:47.282 INFO Close driver

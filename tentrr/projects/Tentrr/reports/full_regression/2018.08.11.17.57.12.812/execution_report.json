@@ -1,0 +1,64 @@
+{
+    "test_cases": [
+        {
+            "test_set": "set_93caa8",
+            "module": "",
+            "sub_modules": [],
+            "name": "navigate_to_campsite_test",
+            "full_name": "navigate_to_campsite_test",
+            "result": "pass",
+            "test_elapsed_time": 18.77,
+            "start_date_time": "2018/08/11 17:57",
+            "browser": "chrome",
+            "data": {
+                "url": "'https://www.tentrr.com/s/sites/'",
+                "search_value": "'Frog Pond'",
+                "expected_value": "'Frog Pond'",
+                "expected_text": "'Frog'"
+            },
+            "environment": "",
+            "set_name": "https://www.tentrr.com/s/sites/"
+        },
+        {
+            "test_set": "set_ea4502",
+            "module": "",
+            "sub_modules": [],
+            "name": "map_pin_test",
+            "full_name": "map_pin_test",
+            "result": "pass",
+            "test_elapsed_time": 18.86,
+            "start_date_time": "2018/08/11 17:57",
+            "browser": "chrome",
+            "data": {
+                "url": "'https://www.tentrr.com/s/sites/'",
+                "expected_text": "'44.14279782818058'"
+            },
+            "environment": "",
+            "set_name": "https://www.tentrr.com/s/sites/"
+        },
+        {
+            "test_set": "set_354bc3",
+            "module": "",
+            "sub_modules": [],
+            "name": "search_test",
+            "full_name": "search_test",
+            "result": "pass",
+            "test_elapsed_time": 15.53,
+            "start_date_time": "2018/08/11 17:57",
+            "browser": "chrome",
+            "data": {
+                "url": "'https://www.tentrr.com/s/sites/'",
+                "search_value": "'Frog Pond'",
+                "expected_value": "'Frog Pond'",
+                "expected_text": "'Frog'"
+            },
+            "environment": "",
+            "set_name": "https://www.tentrr.com/s/sites/"
+        }
+    ],
+    "total_cases_ok": 3,
+    "total_cases_fail": 0,
+    "total_cases": 3,
+    "total_pending": 0,
+    "net_elapsed_time": 18.98
+}

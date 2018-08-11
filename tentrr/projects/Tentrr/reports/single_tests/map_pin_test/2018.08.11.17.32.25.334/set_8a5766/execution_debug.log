@@ -1,0 +1,50 @@
+2018-08-11 17:32:25,341 root INFO Test execution started: map_pin_test
+2018-08-11 17:32:25,343 root INFO Browser: chrome
+2018-08-11 17:32:25,344 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    expected_text: Pioneer
+
+2018-08-11 17:32:27,445 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:65367/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 17:32:27,446 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:65367
+2018-08-11 17:32:29,707 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "POST /session HTTP/1.1" 200 904
+2018-08-11 17:32:29,709 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:29,710 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/window/current/maximize {"windowHandle": "current", "sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:30,915 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "POST /session/84917a3237c77749fe73c674494336f6/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 17:32:30,916 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:30,916 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:35,027 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "POST /session/84917a3237c77749fe73c674494336f6/url HTTP/1.1" 200 72
+2018-08-11 17:32:35,028 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:35,028 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 17:32:35,031 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/element {"using": "css selector", "value": "#search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive", "sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:35,054 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "POST /session/84917a3237c77749fe73c674494336f6/element HTTP/1.1" 200 103
+2018-08-11 17:32:35,055 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:35,055 root DEBUG Element found
+2018-08-11 17:32:35,055 root INFO Click #search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive
+2018-08-11 17:32:35,056 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/element/0.18423230716653793-1/click {"id": "0.18423230716653793-1", "sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:35,467 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "POST /session/84917a3237c77749fe73c674494336f6/element/0.18423230716653793-1/click HTTP/1.1" 200 72
+2018-08-11 17:32:35,468 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:35,468 root INFO Waiting for 3 seconds
+2018-08-11 17:32:38,474 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/url {"sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:38,480 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "GET /session/84917a3237c77749fe73c674494336f6/url HTTP/1.1" 200 216
+2018-08-11 17:32:38,480 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:38,481 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/url {"sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:38,487 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "GET /session/84917a3237c77749fe73c674494336f6/url HTTP/1.1" 200 216
+2018-08-11 17:32:38,489 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:38,490 root INFO Assert that False is true
+2018-08-11 17:32:38,492 root INFO Take screenshot error
+2018-08-11 17:32:38,493 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6/screenshot {"sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:40,355 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "GET /session/84917a3237c77749fe73c674494336f6/screenshot HTTP/1.1" 200 1754834
+2018-08-11 17:32:40,383 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:32:40,403 root INFO error__ef2a68fc
+2018-08-11 17:32:40,408 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/map_pin_test.py", line 13, in test
+    assert_true(data.expected_text in get_current_url())
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 138, in assert_true
+    raise Exception('Expected {} to be true'.format(condition))
+Exception: Expected False to be true
+2018-08-11 17:32:40,409 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:65367/session/84917a3237c77749fe73c674494336f6 {"sessionId": "84917a3237c77749fe73c674494336f6"}
+2018-08-11 17:32:40,613 urllib3.connectionpool DEBUG http://127.0.0.1:65367 "DELETE /session/84917a3237c77749fe73c674494336f6 HTTP/1.1" 200 72
+2018-08-11 17:32:40,613 selenium.webdriver.remote.remote_connection DEBUG Finished Request

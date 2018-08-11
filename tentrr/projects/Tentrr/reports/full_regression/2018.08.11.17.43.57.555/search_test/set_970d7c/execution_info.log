@@ -1,0 +1,14 @@
+17:43:59.438 INFO Test execution started: search_test
+17:43:59.439 INFO Browser: chrome
+17:43:59.441 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+    expected_text: Frog
+
+17:44:09.579 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:44:09.857 INFO Write 'Frog Pond' in element input-text
+17:44:09.891 INFO Click search-btn-container
+17:44:11.537 INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+17:44:11.581 INFO Close driver
+17:44:13.839 INFO Test passed

@@ -1,0 +1,15 @@
+14:12:36.747 INFO Test execution started: search_test
+14:12:36.747 INFO Browser: chrome
+14:12:36.747 INFO Using data: 
+    url: 'https://www.tentrr.com/s/sites/'
+    search_value: 'Frog Pond'
+    expected_value: 'Frog Pond'
+
+14:12:36.751 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/search_test.py", line 7, in test
+    go_to(data.url)
+NameError: name 'go_to' is not defined
+14:12:36.752 INFO Close driver

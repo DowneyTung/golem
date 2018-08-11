@@ -1,0 +1,22 @@
+17:15:04.797 INFO Test execution started: navigate_to_campsite_test
+17:15:04.798 INFO Browser: chrome
+17:15:04.799 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+17:15:11.431 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:15:11.770 INFO Write 'Frog Pond' in element input-text
+17:15:11.792 INFO Click search-btn-container
+17:15:12.153 INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+17:15:12.393 INFO Click //*[@class="search-page-list-boxes"]/div[1]
+17:15:12.766 INFO Waiting for 3 seconds
+17:15:15.854 INFO Take screenshot error
+17:15:17.133 INFO error__c42c7afd
+17:15:17.134 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py", line 17, in test
+    assert_true(data.expected_text in str(a))
+TypeError: 'in <string>' requires string as left operand, not NoneType

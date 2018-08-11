@@ -1,0 +1,22 @@
+16:42:14.810 INFO Test execution started: navigate_to_campsite_test
+16:42:14.810 INFO Browser: chrome
+16:42:14.811 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+16:42:21.722 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+16:42:21.954 INFO Write 'Frog Pond' in element input-text
+16:42:21.973 INFO Click search-btn-container
+16:42:22.752 INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+16:42:22.786 INFO Click //*[@class="search-page-list-boxes"]/div[1]
+16:42:22.953 INFO Waiting for 5 seconds
+16:42:27.966 INFO Take screenshot error
+16:42:28.834 INFO error__b68b79e9
+16:42:28.834 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py", line 16, in test
+    a = get_page_title()
+NameError: name 'get_page_title' is not defined

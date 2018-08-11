@@ -1,0 +1,20 @@
+{
+    "test_case": "map_pin_test",
+    "result": "fail",
+    "steps": [
+        "Navigate to: 'https://www.tentrr.com/s/sites/'",
+        "error__c095550b"
+    ],
+    "description": "make sure the map pin is working",
+    "error": "Traceback (most recent call last):\n  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py\", line 122, in run_test\n    test_module.test(execution.data)\n  File \"/Users/yidong/golem/tentrr/projects/Tentrr/tests/map_pin_test.py\", line 10, in test\n    click(search_page.map_pin_pioneer_farm)\nAttributeError: module 'projects.Tentrr.pages.search_page' has no attribute 'map_pin_pioneer_farm'\n",
+    "short_error": "AttributeError: module 'projects.Tentrr.pages.search_page' has no attribute 'map_pin_pioneer_farm'\n",
+    "test_elapsed_time": 11.7,
+    "test_timestamp": "2018.08.11.17.29.54.691",
+    "browser": "chrome",
+    "test_data": {
+        "url": "'https://www.tentrr.com/s/sites/'",
+        "expected_text": "'Pioneer'"
+    },
+    "environment": "",
+    "set_name": "https://www.tentrr.com/s/sites/"
+}

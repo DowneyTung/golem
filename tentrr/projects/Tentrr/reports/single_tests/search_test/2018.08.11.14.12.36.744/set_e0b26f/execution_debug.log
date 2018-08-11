@@ -1,0 +1,25 @@
+2018-08-11 14:12:36,747 root INFO Test execution started: search_test
+2018-08-11 14:12:36,747 root INFO Browser: chrome
+2018-08-11 14:12:36,747 root INFO Using data: 
+    url: 'https://www.tentrr.com/s/sites/'
+    search_value: 'Frog Pond'
+    expected_value: 'Frog Pond'
+
+2018-08-11 14:12:36,751 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/search_test.py", line 7, in test
+    go_to(data.url)
+NameError: name 'go_to' is not defined
+2018-08-11 14:12:36,752 root INFO Close driver
+2018-08-11 14:12:36,922 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:62208/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 14:12:36,926 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:62208
+2018-08-11 14:12:38,091 urllib3.connectionpool DEBUG http://127.0.0.1:62208 "POST /session HTTP/1.1" 200 904
+2018-08-11 14:12:38,092 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:12:38,093 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:62208/session/5c0f905fc64fc3ffc5918ef6ad14ba78/window/current/maximize {"windowHandle": "current", "sessionId": "5c0f905fc64fc3ffc5918ef6ad14ba78"}
+2018-08-11 14:12:38,312 urllib3.connectionpool DEBUG http://127.0.0.1:62208 "POST /session/5c0f905fc64fc3ffc5918ef6ad14ba78/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 14:12:38,313 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:12:38,313 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:62208/session/5c0f905fc64fc3ffc5918ef6ad14ba78 {"sessionId": "5c0f905fc64fc3ffc5918ef6ad14ba78"}
+2018-08-11 14:12:38,425 urllib3.connectionpool DEBUG http://127.0.0.1:62208 "DELETE /session/5c0f905fc64fc3ffc5918ef6ad14ba78 HTTP/1.1" 200 72
+2018-08-11 14:12:38,426 selenium.webdriver.remote.remote_connection DEBUG Finished Request

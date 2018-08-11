@@ -1,0 +1,35 @@
+17:36:39.874 INFO Test execution started: map_pin_test
+17:36:39.874 INFO Browser: chrome
+17:36:39.875 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    expected_text: Pioneer
+
+17:36:47.128 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:36:47.161 INFO Click #search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive
+17:36:47.477 INFO Waiting for 3 seconds
+17:36:50.873 INFO Refresh page
+17:36:50.874 INFO Verify that the element exists
+17:36:51.967 INFO Take screenshot error
+17:36:52.994 INFO error__9ec8b6ed
+17:36:52.997 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 593, in verify_exists
+    webelement = browser.get_browser().find(element, timeout=1)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/extended_driver.py", line 9, in find
+    return common._find(self, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 122, in _find
+    element_name, timeout, wait_displayed)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 47, in _find_webelement
+    .format(element_name, selector_type, selector_value))
+golem.core.exceptions.ElementNotFound: Element //*[contains(text(), "Pioneer Farm")] not found using selector xpath:'//*[contains(text(), "Pioneer Farm")]'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/map_pin_test.py", line 14, in test
+    verify_exists(('xpath', '//*[contains(text(), "Pioneer Farm")]'))
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 595, in verify_exists
+    raise ElementNotFound('Element {} does not exist'.format(element))
+golem.core.exceptions.ElementNotFound: Element ('xpath', '//*[contains(text(), "Pioneer Farm")]') does not exist

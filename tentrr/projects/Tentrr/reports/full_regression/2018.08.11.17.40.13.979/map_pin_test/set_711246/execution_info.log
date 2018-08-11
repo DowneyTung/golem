@@ -1,0 +1,11 @@
+17:40:15.716 INFO Test execution started: map_pin_test
+17:40:15.718 INFO Browser: chrome
+17:40:15.724 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    expected_text: 44.14279782818058
+
+17:40:26.414 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:40:26.471 INFO Click #search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive
+17:40:27.792 INFO Waiting for 3 seconds
+17:40:31.885 INFO Assert that True is true
+17:40:34.160 INFO Test passed

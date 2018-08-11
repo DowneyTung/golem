@@ -1,0 +1,42 @@
+2018-08-11 13:45:01,940 root INFO Test execution started: search_test
+2018-08-11 13:45:01,940 root INFO Browser: chrome
+2018-08-11 13:45:02,108 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 13:45:02,109 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:59159
+2018-08-11 13:45:03,110 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session HTTP/1.1" 200 904
+2018-08-11 13:45:03,112 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:03,113 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/window/current/maximize {"windowHandle": "current", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:03,341 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 13:45:03,341 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:03,342 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/url {"url": "http://en.wikipedia.org/", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:04,889 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/url HTTP/1.1" 200 72
+2018-08-11 13:45:04,889 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:04,890 root INFO Navigate to: 'http://en.wikipedia.org/'
+2018-08-11 13:45:04,891 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element {"using": "id", "value": "searchInput", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:04,939 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/element HTTP/1.1" 200 103
+2018-08-11 13:45:04,940 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:04,940 root DEBUG Element found
+2018-08-11 13:45:04,940 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.27437034578119146-1/value {"text": "automation", "value": ["a", "u", "t", "o", "m", "a", "t", "i", "o", "n"], "id": "0.27437034578119146-1", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:05,171 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.27437034578119146-1/value HTTP/1.1" 200 72
+2018-08-11 13:45:05,171 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:05,171 root INFO Write 'automation' in element searchInput
+2018-08-11 13:45:05,172 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element {"using": "id", "value": "searchButton", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:05,185 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/element HTTP/1.1" 200 103
+2018-08-11 13:45:05,185 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:05,185 root DEBUG Element found
+2018-08-11 13:45:05,185 root INFO Click searchButton
+2018-08-11 13:45:05,186 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.27437034578119146-2/click {"id": "0.27437034578119146-2", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:06,004 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.27437034578119146-2/click HTTP/1.1" 200 72
+2018-08-11 13:45:06,005 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:06,005 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element {"using": "id", "value": "firstHeading", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:06,121 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "POST /session/cba0c7e4db2b21afd4ba9cea02d0d710/element HTTP/1.1" 200 102
+2018-08-11 13:45:06,121 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:06,121 root DEBUG Element found
+2018-08-11 13:45:06,121 root INFO Verify element 'firstHeading' contains text 'Automation'
+2018-08-11 13:45:06,122 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.8352264799870761-1/text {"id": "0.8352264799870761-1", "sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:06,263 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "GET /session/cba0c7e4db2b21afd4ba9cea02d0d710/element/0.8352264799870761-1/text HTTP/1.1" 200 80
+2018-08-11 13:45:06,264 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:06,264 root INFO Close driver
+2018-08-11 13:45:06,264 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:59159/session/cba0c7e4db2b21afd4ba9cea02d0d710 {"sessionId": "cba0c7e4db2b21afd4ba9cea02d0d710"}
+2018-08-11 13:45:06,317 urllib3.connectionpool DEBUG http://127.0.0.1:59159 "DELETE /session/cba0c7e4db2b21afd4ba9cea02d0d710 HTTP/1.1" 200 72
+2018-08-11 13:45:06,318 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 13:45:08,468 root INFO Test passed

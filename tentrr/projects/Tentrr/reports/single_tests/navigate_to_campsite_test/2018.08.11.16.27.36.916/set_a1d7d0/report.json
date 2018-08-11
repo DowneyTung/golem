@@ -1,0 +1,24 @@
+{
+    "test_case": "navigate_to_campsite_test",
+    "result": "pass",
+    "steps": [
+        "Navigate to: 'https://www.tentrr.com/s/sites/'",
+        "Write 'Frog Pond' in element input-text",
+        "Click search-btn-container",
+        "Verify element '//*[contains(text(), \"Frog Pond\")]' contains text 'Frog Pond'",
+        "Click //*[contains(text(), \"Frog Pond\")]"
+    ],
+    "description": "Search an article in Wikipedia",
+    "error": "",
+    "short_error": "",
+    "test_elapsed_time": 23.11,
+    "test_timestamp": "2018.08.11.16.27.36.920",
+    "browser": "chrome",
+    "test_data": {
+        "url": "'https://www.tentrr.com/s/sites/'",
+        "search_value": "'Frog Pond'",
+        "expected_value": "'Frog Pond'"
+    },
+    "environment": "",
+    "set_name": "https://www.tentrr.com/s/sites/"
+}

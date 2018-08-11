@@ -1,0 +1,237 @@
+2018-08-11 17:00:27,473 root INFO Test execution started: navigate_to_campsite_test
+2018-08-11 17:00:27,473 root INFO Browser: chrome
+2018-08-11 17:00:27,474 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+2018-08-11 17:00:28,537 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 17:00:28,538 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:60437
+2018-08-11 17:00:30,356 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session HTTP/1.1" 200 904
+2018-08-11 17:00:30,357 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:30,357 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/window/current/maximize {"windowHandle": "current", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:31,564 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 17:00:31,565 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:31,565 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,169 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/url HTTP/1.1" 200 72
+2018-08-11 17:00:35,174 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:35,175 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 17:00:35,179 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "id", "value": "input-text", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,197 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 103
+2018-08-11 17:00:35,198 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:35,198 root DEBUG Element found
+2018-08-11 17:00:35,199 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-1/value {"text": "Frog Pond", "value": ["F", "r", "o", "g", " ", "P", "o", "n", "d"], "id": "0.12387678303699201-1", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,359 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-1/value HTTP/1.1" 200 72
+2018-08-11 17:00:35,360 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:35,360 root INFO Write 'Frog Pond' in element input-text
+2018-08-11 17:00:35,361 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "id", "value": "search-btn-container", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,375 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 103
+2018-08-11 17:00:35,376 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:35,376 root DEBUG Element found
+2018-08-11 17:00:35,376 root INFO Click search-btn-container
+2018-08-11 17:00:35,376 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-2/click {"id": "0.12387678303699201-2", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,537 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-2/click HTTP/1.1" 200 72
+2018-08-11 17:00:35,546 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:35,547 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"Frog Pond\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:35,595 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 360
+2018-08-11 17:00:35,595 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:36,099 root DEBUG Element not found yet, remaining time: 19.45
+2018-08-11 17:00:36,100 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"Frog Pond\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:36,111 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 103
+2018-08-11 17:00:36,111 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:36,111 root DEBUG Element found
+2018-08-11 17:00:36,111 root INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+2018-08-11 17:00:36,112 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-3/text {"id": "0.12387678303699201-3", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:36,138 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "GET /session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-3/text HTTP/1.1" 200 95
+2018-08-11 17:00:36,138 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:36,139 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[@class=\"search-page-list-boxes\"]/div[1]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:36,165 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 103
+2018-08-11 17:00:36,166 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:36,166 root DEBUG Element found
+2018-08-11 17:00:36,166 root INFO Click //*[@class="search-page-list-boxes"]/div[1]
+2018-08-11 17:00:36,166 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-4/click {"id": "0.12387678303699201-4", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:36,351 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element/0.12387678303699201-4/click HTTP/1.1" 200 72
+2018-08-11 17:00:36,352 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:36,352 root INFO Waiting for 3 seconds
+2018-08-11 17:00:39,357 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:39,374 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:39,374 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:39,877 root DEBUG Element not found yet, remaining time: 19.48
+2018-08-11 17:00:39,878 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:39,889 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:39,889 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:40,392 root DEBUG Element not found yet, remaining time: 18.96
+2018-08-11 17:00:40,393 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:40,405 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:40,406 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:40,907 root DEBUG Element not found yet, remaining time: 18.45
+2018-08-11 17:00:40,907 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:40,916 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:40,917 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:41,418 root DEBUG Element not found yet, remaining time: 17.94
+2018-08-11 17:00:41,418 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:41,428 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:41,429 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:41,933 root DEBUG Element not found yet, remaining time: 17.42
+2018-08-11 17:00:41,942 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:41,952 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:41,952 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:42,457 root DEBUG Element not found yet, remaining time: 16.90
+2018-08-11 17:00:42,457 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:42,468 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:42,468 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:42,973 root DEBUG Element not found yet, remaining time: 16.38
+2018-08-11 17:00:42,973 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:42,984 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:42,984 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:43,488 root DEBUG Element not found yet, remaining time: 15.87
+2018-08-11 17:00:43,488 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:43,504 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:43,505 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:44,007 root DEBUG Element not found yet, remaining time: 15.35
+2018-08-11 17:00:44,007 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:44,015 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:44,016 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:44,521 root DEBUG Element not found yet, remaining time: 14.84
+2018-08-11 17:00:44,521 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:44,532 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:44,532 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:45,036 root DEBUG Element not found yet, remaining time: 14.32
+2018-08-11 17:00:45,037 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:45,047 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:45,048 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:45,552 root DEBUG Element not found yet, remaining time: 13.81
+2018-08-11 17:00:45,552 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:45,563 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:45,564 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:46,068 root DEBUG Element not found yet, remaining time: 13.29
+2018-08-11 17:00:46,068 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:46,079 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:46,080 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:46,581 root DEBUG Element not found yet, remaining time: 12.78
+2018-08-11 17:00:46,581 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:46,591 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:46,592 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:47,104 root DEBUG Element not found yet, remaining time: 12.25
+2018-08-11 17:00:47,104 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:47,113 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:47,113 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:47,613 root DEBUG Element not found yet, remaining time: 11.74
+2018-08-11 17:00:47,614 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:47,626 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:47,627 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:48,128 root DEBUG Element not found yet, remaining time: 11.23
+2018-08-11 17:00:48,128 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:48,137 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:48,138 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:48,643 root DEBUG Element not found yet, remaining time: 10.71
+2018-08-11 17:00:48,643 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:48,654 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:48,655 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:49,155 root DEBUG Element not found yet, remaining time: 10.20
+2018-08-11 17:00:49,155 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:49,165 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:49,165 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:49,669 root DEBUG Element not found yet, remaining time: 9.69
+2018-08-11 17:00:49,669 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:49,680 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:49,680 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:50,184 root DEBUG Element not found yet, remaining time: 9.17
+2018-08-11 17:00:50,185 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:50,195 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:50,203 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:50,708 root DEBUG Element not found yet, remaining time: 8.65
+2018-08-11 17:00:50,709 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:50,719 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:50,719 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:51,223 root DEBUG Element not found yet, remaining time: 8.13
+2018-08-11 17:00:51,223 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:51,234 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:51,234 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:51,737 root DEBUG Element not found yet, remaining time: 7.62
+2018-08-11 17:00:51,737 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:51,747 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:51,747 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:52,248 root DEBUG Element not found yet, remaining time: 7.11
+2018-08-11 17:00:52,248 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:52,258 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:52,258 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:52,762 root DEBUG Element not found yet, remaining time: 6.60
+2018-08-11 17:00:52,762 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:52,772 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:52,773 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:53,274 root DEBUG Element not found yet, remaining time: 6.08
+2018-08-11 17:00:53,274 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:53,284 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:53,284 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:53,788 root DEBUG Element not found yet, remaining time: 5.57
+2018-08-11 17:00:53,789 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:53,800 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:53,809 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:54,313 root DEBUG Element not found yet, remaining time: 5.04
+2018-08-11 17:00:54,313 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:54,324 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:54,324 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:54,830 root DEBUG Element not found yet, remaining time: 4.53
+2018-08-11 17:00:54,830 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:54,839 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:54,840 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:55,344 root DEBUG Element not found yet, remaining time: 4.01
+2018-08-11 17:00:55,345 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:55,355 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:55,355 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:55,861 root DEBUG Element not found yet, remaining time: 3.50
+2018-08-11 17:00:55,861 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:55,872 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:55,872 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:56,373 root DEBUG Element not found yet, remaining time: 2.98
+2018-08-11 17:00:56,373 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:56,383 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:56,384 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:56,889 root DEBUG Element not found yet, remaining time: 2.47
+2018-08-11 17:00:56,889 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:56,898 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:56,898 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:57,402 root DEBUG Element not found yet, remaining time: 1.95
+2018-08-11 17:00:57,403 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:57,414 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:57,414 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:57,916 root DEBUG Element not found yet, remaining time: 1.44
+2018-08-11 17:00:57,917 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:57,928 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:57,928 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:58,433 root DEBUG Element not found yet, remaining time: 0.92
+2018-08-11 17:00:58,433 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:58,445 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:58,446 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:58,949 root DEBUG Element not found yet, remaining time: 0.41
+2018-08-11 17:00:58,959 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:58,969 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:58,969 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:59,472 root DEBUG Element not found yet, remaining time: -0.11
+2018-08-11 17:00:59,472 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/element {"using": "xpath", "value": "//*[contains(text(), \"enjoy the music of the frogs.\")]", "sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:00:59,481 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "POST /session/f674304e6af2e25e5dbd1cab3e07602a/element HTTP/1.1" 200 380
+2018-08-11 17:00:59,482 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:00:59,493 root INFO Take screenshot error
+2018-08-11 17:00:59,494 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a/screenshot {"sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:01:00,672 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "GET /session/f674304e6af2e25e5dbd1cab3e07602a/screenshot HTTP/1.1" 200 970546
+2018-08-11 17:01:00,675 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:01:00,693 root INFO error__de38930f
+2018-08-11 17:01:00,694 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py", line 15, in test
+    verify_text_in_element(search_page.search_result_context, data.expected_text)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 740, in verify_text_in_element
+    webelement = browser.get_browser().find(element)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/extended_driver.py", line 9, in find
+    return common._find(self, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 122, in _find
+    element_name, timeout, wait_displayed)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 47, in _find_webelement
+    .format(element_name, selector_type, selector_value))
+golem.core.exceptions.ElementNotFound: Element //*[contains(text(), "enjoy the music of the frogs.")] not found using selector xpath:'//*[contains(text(), "enjoy the music of the frogs.")]'
+2018-08-11 17:01:00,696 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:60437/session/f674304e6af2e25e5dbd1cab3e07602a {"sessionId": "f674304e6af2e25e5dbd1cab3e07602a"}
+2018-08-11 17:01:00,824 urllib3.connectionpool DEBUG http://127.0.0.1:60437 "DELETE /session/f674304e6af2e25e5dbd1cab3e07602a HTTP/1.1" 200 72
+2018-08-11 17:01:00,825 selenium.webdriver.remote.remote_connection DEBUG Finished Request

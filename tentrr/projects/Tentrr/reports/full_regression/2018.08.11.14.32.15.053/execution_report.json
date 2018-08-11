@@ -1,0 +1,45 @@
+{
+    "test_cases": [
+        {
+            "test_set": "set_9e82ef",
+            "module": "",
+            "sub_modules": [],
+            "name": "navigate_to_campsite_test",
+            "full_name": "navigate_to_campsite_test",
+            "result": "fail",
+            "test_elapsed_time": 32.39,
+            "start_date_time": "2018/08/11 14:32",
+            "browser": "chrome",
+            "data": {
+                "url": "'https://www.tentrr.com/s/sites/'",
+                "search_value": "'Frog Pond'",
+                "expected_value": "'Frog Pond'"
+            },
+            "environment": "",
+            "set_name": "https://www.tentrr.com/s/sites/"
+        },
+        {
+            "test_set": "set_c7655a",
+            "module": "",
+            "sub_modules": [],
+            "name": "search_test",
+            "full_name": "search_test",
+            "result": "fail",
+            "test_elapsed_time": 32.85,
+            "start_date_time": "2018/08/11 14:32",
+            "browser": "chrome",
+            "data": {
+                "url": "'https://www.tentrr.com/s/sites/'",
+                "search_value": "'Frog Pond'",
+                "expected_value": "'Frog Pond'"
+            },
+            "environment": "",
+            "set_name": "https://www.tentrr.com/s/sites/"
+        }
+    ],
+    "total_cases_ok": 0,
+    "total_cases_fail": 2,
+    "total_cases": 2,
+    "total_pending": 0,
+    "net_elapsed_time": 32.93
+}

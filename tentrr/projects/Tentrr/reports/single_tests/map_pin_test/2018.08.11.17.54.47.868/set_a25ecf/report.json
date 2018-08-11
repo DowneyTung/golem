@@ -1,0 +1,21 @@
+{
+    "test_case": "map_pin_test",
+    "result": "pass",
+    "steps": [
+        "Navigate to: 'https://www.tentrr.com/s/sites/'",
+        "Click #search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive",
+        "Assert that True is true"
+    ],
+    "description": "make sure the map pin is working",
+    "error": "",
+    "short_error": "",
+    "test_elapsed_time": 12.68,
+    "test_timestamp": "2018.08.11.17.54.47.873",
+    "browser": "chrome",
+    "test_data": {
+        "url": "'https://www.tentrr.com/s/sites/'",
+        "expected_text": "'44.14279782818058'"
+    },
+    "environment": "",
+    "set_name": "https://www.tentrr.com/s/sites/"
+}

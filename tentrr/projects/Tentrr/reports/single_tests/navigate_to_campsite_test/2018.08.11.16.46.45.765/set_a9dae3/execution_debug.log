@@ -1,0 +1,62 @@
+2018-08-11 16:46:45,768 root INFO Test execution started: navigate_to_campsite_test
+2018-08-11 16:46:45,769 root INFO Browser: chrome
+2018-08-11 16:46:45,770 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+2018-08-11 16:46:46,844 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 16:46:46,845 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:58269
+2018-08-11 16:46:48,943 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session HTTP/1.1" 200 904
+2018-08-11 16:46:48,944 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:48,944 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/window/current/maximize {"windowHandle": "current", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:50,170 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 16:46:50,170 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:50,171 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,080 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/url HTTP/1.1" 200 72
+2018-08-11 16:46:53,081 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:53,081 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 16:46:53,090 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element {"using": "id", "value": "input-text", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,113 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element HTTP/1.1" 200 102
+2018-08-11 16:46:53,113 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:53,114 root DEBUG Element found
+2018-08-11 16:46:53,114 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-1/value {"text": "Frog Pond", "value": ["F", "r", "o", "g", " ", "P", "o", "n", "d"], "id": "0.5473450719717607-1", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,291 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-1/value HTTP/1.1" 200 72
+2018-08-11 16:46:53,291 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:53,291 root INFO Write 'Frog Pond' in element input-text
+2018-08-11 16:46:53,292 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element {"using": "id", "value": "search-btn-container", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,308 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element HTTP/1.1" 200 102
+2018-08-11 16:46:53,308 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:53,308 root DEBUG Element found
+2018-08-11 16:46:53,309 root INFO Click search-btn-container
+2018-08-11 16:46:53,309 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-2/click {"id": "0.5473450719717607-2", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,451 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-2/click HTTP/1.1" 200 72
+2018-08-11 16:46:53,451 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:53,452 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element {"using": "xpath", "value": "//*[contains(text(), \"Frog Pond\")]", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:53,584 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element HTTP/1.1" 200 360
+2018-08-11 16:46:53,585 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:54,086 root DEBUG Element not found yet, remaining time: 19.37
+2018-08-11 16:46:54,086 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element {"using": "xpath", "value": "//*[contains(text(), \"Frog Pond\")]", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:54,309 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element HTTP/1.1" 200 102
+2018-08-11 16:46:54,309 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:54,309 root DEBUG Element found
+2018-08-11 16:46:54,310 root INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+2018-08-11 16:46:54,310 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-3/text {"id": "0.5473450719717607-3", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:54,346 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "GET /session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-3/text HTTP/1.1" 200 95
+2018-08-11 16:46:54,347 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:54,347 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element {"using": "xpath", "value": "//*[@class=\"search-page-list-boxes\"]/div[1]", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:54,370 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element HTTP/1.1" 200 102
+2018-08-11 16:46:54,370 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:54,371 root DEBUG Element found
+2018-08-11 16:46:54,371 root INFO Click //*[@class="search-page-list-boxes"]/div[1]
+2018-08-11 16:46:54,371 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-4/click {"id": "0.5473450719717607-4", "sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:54,552 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "POST /session/aa2259ccc8579df1ad177614a617560e/element/0.5473450719717607-4/click HTTP/1.1" 200 72
+2018-08-11 16:46:54,552 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:54,552 root INFO Waiting for 5 seconds
+2018-08-11 16:46:59,555 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e/url {"sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:59,568 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "GET /session/aa2259ccc8579df1ad177614a617560e/url HTTP/1.1" 200 137
+2018-08-11 16:46:59,569 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:46:59,569 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:58269/session/aa2259ccc8579df1ad177614a617560e {"sessionId": "aa2259ccc8579df1ad177614a617560e"}
+2018-08-11 16:46:59,634 urllib3.connectionpool DEBUG http://127.0.0.1:58269 "DELETE /session/aa2259ccc8579df1ad177614a617560e HTTP/1.1" 200 72
+2018-08-11 16:46:59,648 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 16:47:01,837 root INFO Test passed

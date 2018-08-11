@@ -1,0 +1,18 @@
+14:20:47.115 INFO Test execution started: search_test
+14:20:47.115 INFO Browser: chrome
+14:20:47.116 INFO Using data: 
+    url: 'https://www.tentrr.com/s/sites/'
+    search_value: 'Frog Pond'
+    expected_value: 'Frog Pond'
+
+14:20:52.060 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+14:20:52.062 INFO Take screenshot error
+14:20:53.169 INFO error__3d3888a6
+14:20:53.170 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/search_test.py", line 10, in test
+    send_keys(search_page.search_input, data.search_value)
+AttributeError: module 'projects.Tentrr.pages.search_page' has no attribute 'search_input'
+14:20:53.171 INFO Close driver

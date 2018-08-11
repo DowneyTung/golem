@@ -1,0 +1,19 @@
+{
+    "test_case": "search_test",
+    "result": "pass",
+    "steps": [
+        "Navigate to: 'http://en.wikipedia.org/'",
+        "Write 'automation' in element searchInput",
+        "Click searchButton",
+        "Verify element 'firstHeading' contains text 'Automation'"
+    ],
+    "description": "Search an article in Wikipedia",
+    "error": "",
+    "short_error": "",
+    "test_elapsed_time": 8.11,
+    "test_timestamp": "2018.08.11.13.43.22.429",
+    "browser": "chrome",
+    "test_data": {},
+    "environment": "",
+    "set_name": ""
+}

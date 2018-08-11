@@ -1,0 +1,16 @@
+17:29:54.689 INFO Test execution started: map_pin_test
+17:29:54.690 INFO Browser: chrome
+17:29:54.690 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    expected_text: Pioneer
+
+17:30:02.974 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:30:02.984 INFO Take screenshot error
+17:30:04.031 INFO error__c095550b
+17:30:04.032 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/map_pin_test.py", line 10, in test
+    click(search_page.map_pin_pioneer_farm)
+AttributeError: module 'projects.Tentrr.pages.search_page' has no attribute 'map_pin_pioneer_farm'

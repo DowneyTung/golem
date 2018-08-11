@@ -1,0 +1,25 @@
+{
+    "test_case": "navigate_to_campsite_test",
+    "result": "fail",
+    "steps": [
+        "Navigate to: 'https://www.tentrr.com/s/sites/'",
+        "Write 'Frog Pond' in element input-text",
+        "Click search-btn-container",
+        "Verify element '//*[contains(text(), \"Frog Pond\")]' contains text 'Frog Pond'",
+        "Click //*[@class=\"search-page-list-boxes\"]/div[1]",
+        "error__6549215b"
+    ],
+    "description": "Search an article in Wikipedia",
+    "error": "Traceback (most recent call last):\n  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py\", line 122, in run_test\n    test_module.test(execution.data)\n  File \"/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py\", line 17, in test\n    assert_true(data.expected_text in a)\nTypeError: 'in <string>' requires string as left operand, not NoneType\n",
+    "short_error": "TypeError: 'in <string>' requires string as left operand, not NoneType\n",
+    "test_elapsed_time": 14.87,
+    "test_timestamp": "2018.08.11.17.13.41.110",
+    "browser": "chrome",
+    "test_data": {
+        "url": "'https://www.tentrr.com/s/sites/'",
+        "search_value": "'Frog Pond'",
+        "expected_value": "'Frog Pond'"
+    },
+    "environment": "",
+    "set_name": "https://www.tentrr.com/s/sites/"
+}

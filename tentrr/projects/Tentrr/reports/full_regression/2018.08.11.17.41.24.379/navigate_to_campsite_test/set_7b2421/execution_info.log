@@ -1,0 +1,16 @@
+17:41:26.067 INFO Test execution started: navigate_to_campsite_test
+17:41:26.069 INFO Browser: chrome
+17:41:26.074 INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+    expected_text: Frog
+
+17:41:36.358 INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+17:41:37.643 INFO Write 'Frog Pond' in element input-text
+17:41:37.769 INFO Click search-btn-container
+17:41:39.474 INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+17:41:39.656 INFO Click //*[@class="search-page-list-boxes"]/div[1]
+17:41:39.971 INFO Waiting for 3 seconds
+17:41:43.058 INFO Assert that True is true
+17:41:45.325 INFO Test passed

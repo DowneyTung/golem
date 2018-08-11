@@ -1,0 +1,34 @@
+2018-08-11 17:42:41,823 root INFO Test execution started: map_pin_test
+2018-08-11 17:42:41,825 root INFO Browser: chrome
+2018-08-11 17:42:41,827 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    expected_text: 44.14279782818058
+
+2018-08-11 17:42:41,918 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:51045/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 17:42:41,920 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:51045
+2018-08-11 17:42:44,063 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "POST /session HTTP/1.1" 200 904
+2018-08-11 17:42:44,067 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:44,069 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad/window/current/maximize {"windowHandle": "current", "sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:45,293 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "POST /session/886953059080729034e661f6dd4e8aad/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 17:42:45,294 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:45,295 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:52,596 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "POST /session/886953059080729034e661f6dd4e8aad/url HTTP/1.1" 200 72
+2018-08-11 17:42:52,597 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:52,598 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 17:42:52,603 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad/element {"using": "css selector", "value": "#search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive", "sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:52,667 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "POST /session/886953059080729034e661f6dd4e8aad/element HTTP/1.1" 200 103
+2018-08-11 17:42:52,668 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:52,668 root DEBUG Element found
+2018-08-11 17:42:52,669 root INFO Click #search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive
+2018-08-11 17:42:52,670 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad/element/0.23060214842949955-1/click {"id": "0.23060214842949955-1", "sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:54,355 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "POST /session/886953059080729034e661f6dd4e8aad/element/0.23060214842949955-1/click HTTP/1.1" 200 72
+2018-08-11 17:42:54,356 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:54,356 root INFO Waiting for 3 seconds
+2018-08-11 17:42:57,359 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad/url {"sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:57,541 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "GET /session/886953059080729034e661f6dd4e8aad/url HTTP/1.1" 200 212
+2018-08-11 17:42:57,541 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:57,542 root INFO Assert that True is true
+2018-08-11 17:42:57,544 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:51045/session/886953059080729034e661f6dd4e8aad {"sessionId": "886953059080729034e661f6dd4e8aad"}
+2018-08-11 17:42:57,617 urllib3.connectionpool DEBUG http://127.0.0.1:51045 "DELETE /session/886953059080729034e661f6dd4e8aad HTTP/1.1" 200 72
+2018-08-11 17:42:57,618 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:42:59,789 root INFO Test passed

@@ -1,0 +1,97 @@
+2018-08-11 14:32:17,014 root INFO Test execution started: search_test
+2018-08-11 14:32:17,022 root INFO Browser: chrome
+2018-08-11 14:32:17,027 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+2018-08-11 14:32:17,248 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 14:32:17,249 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:64994
+2018-08-11 14:32:19,634 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session HTTP/1.1" 200 904
+2018-08-11 14:32:19,640 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:19,642 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/window/current/maximize {"windowHandle": "current", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:19,899 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 14:32:19,900 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:19,901 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:25,819 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/url HTTP/1.1" 200 72
+2018-08-11 14:32:25,821 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:25,822 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 14:32:25,825 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/element {"using": "id", "value": "input-text", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:25,873 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/element HTTP/1.1" 200 102
+2018-08-11 14:32:25,875 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:25,876 root DEBUG Element found
+2018-08-11 14:32:25,877 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/element/0.6453483342128785-1/value {"text": "Frog Pond", "value": ["F", "r", "o", "g", " ", "P", "o", "n", "d"], "id": "0.6453483342128785-1", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:26,356 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/element/0.6453483342128785-1/value HTTP/1.1" 200 72
+2018-08-11 14:32:26,356 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:26,357 root INFO Write 'Frog Pond' in element input-text
+2018-08-11 14:32:26,360 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/element {"using": "id", "value": "search-btn-container", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:26,416 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/element HTTP/1.1" 200 102
+2018-08-11 14:32:26,417 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:26,417 root DEBUG Element found
+2018-08-11 14:32:26,418 root INFO Click search-btn-container
+2018-08-11 14:32:26,419 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/element/0.6453483342128785-2/click {"id": "0.6453483342128785-2", "sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:27,559 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "POST /session/35146ff1c0add484ef45e8deb481a023/element/0.6453483342128785-2/click HTTP/1.1" 200 72
+2018-08-11 14:32:27,567 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:28,069 root DEBUG Element not found yet, remaining time: 19.50
+2018-08-11 14:32:28,570 root DEBUG Element not found yet, remaining time: 19.00
+2018-08-11 14:32:29,071 root DEBUG Element not found yet, remaining time: 18.50
+2018-08-11 14:32:29,571 root DEBUG Element not found yet, remaining time: 18.00
+2018-08-11 14:32:30,072 root DEBUG Element not found yet, remaining time: 17.50
+2018-08-11 14:32:30,573 root DEBUG Element not found yet, remaining time: 16.99
+2018-08-11 14:32:31,075 root DEBUG Element not found yet, remaining time: 16.49
+2018-08-11 14:32:31,575 root DEBUG Element not found yet, remaining time: 15.99
+2018-08-11 14:32:32,077 root DEBUG Element not found yet, remaining time: 15.49
+2018-08-11 14:32:32,580 root DEBUG Element not found yet, remaining time: 14.99
+2018-08-11 14:32:33,082 root DEBUG Element not found yet, remaining time: 14.49
+2018-08-11 14:32:33,583 root DEBUG Element not found yet, remaining time: 13.98
+2018-08-11 14:32:34,085 root DEBUG Element not found yet, remaining time: 13.48
+2018-08-11 14:32:34,586 root DEBUG Element not found yet, remaining time: 12.98
+2018-08-11 14:32:35,087 root DEBUG Element not found yet, remaining time: 12.48
+2018-08-11 14:32:35,588 root DEBUG Element not found yet, remaining time: 11.98
+2018-08-11 14:32:36,089 root DEBUG Element not found yet, remaining time: 11.48
+2018-08-11 14:32:36,590 root DEBUG Element not found yet, remaining time: 10.98
+2018-08-11 14:32:37,092 root DEBUG Element not found yet, remaining time: 10.48
+2018-08-11 14:32:37,594 root DEBUG Element not found yet, remaining time: 9.97
+2018-08-11 14:32:38,095 root DEBUG Element not found yet, remaining time: 9.47
+2018-08-11 14:32:38,597 root DEBUG Element not found yet, remaining time: 8.97
+2018-08-11 14:32:39,099 root DEBUG Element not found yet, remaining time: 8.47
+2018-08-11 14:32:39,601 root DEBUG Element not found yet, remaining time: 7.97
+2018-08-11 14:32:40,103 root DEBUG Element not found yet, remaining time: 7.47
+2018-08-11 14:32:40,604 root DEBUG Element not found yet, remaining time: 6.96
+2018-08-11 14:32:41,105 root DEBUG Element not found yet, remaining time: 6.46
+2018-08-11 14:32:41,606 root DEBUG Element not found yet, remaining time: 5.96
+2018-08-11 14:32:42,107 root DEBUG Element not found yet, remaining time: 5.46
+2018-08-11 14:32:42,609 root DEBUG Element not found yet, remaining time: 4.96
+2018-08-11 14:32:43,110 root DEBUG Element not found yet, remaining time: 4.46
+2018-08-11 14:32:43,612 root DEBUG Element not found yet, remaining time: 3.96
+2018-08-11 14:32:44,157 root DEBUG Element not found yet, remaining time: 3.41
+2018-08-11 14:32:44,668 root DEBUG Element not found yet, remaining time: 2.90
+2018-08-11 14:32:45,169 root DEBUG Element not found yet, remaining time: 2.40
+2018-08-11 14:32:45,672 root DEBUG Element not found yet, remaining time: 1.90
+2018-08-11 14:32:46,173 root DEBUG Element not found yet, remaining time: 1.39
+2018-08-11 14:32:46,674 root DEBUG Element not found yet, remaining time: 0.89
+2018-08-11 14:32:47,176 root DEBUG Element not found yet, remaining time: 0.39
+2018-08-11 14:32:47,677 root DEBUG Element not found yet, remaining time: -0.11
+2018-08-11 14:32:47,682 root INFO Take screenshot error
+2018-08-11 14:32:47,687 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023/screenshot {"sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:47,696 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "GET /session/35146ff1c0add484ef45e8deb481a023/screenshot HTTP/1.1" 200 283
+2018-08-11 14:32:47,697 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 14:32:47,697 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/search_test.py", line 12, in test
+    verify_text_in_element(search_page.first_result_header, data.expected_value)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/actions.py", line 740, in verify_text_in_element
+    webelement = browser.get_browser().find(element)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/extended_driver.py", line 9, in find
+    return common._find(self, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 122, in _find
+    element_name, timeout, wait_displayed)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/webdriver/common.py", line 47, in _find_webelement
+    .format(element_name, selector_type, selector_value))
+golem.core.exceptions.ElementNotFound: Element result-header not found using selector class:'result-header'
+2018-08-11 14:32:47,705 root INFO Close driver
+2018-08-11 14:32:47,708 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:64994/session/35146ff1c0add484ef45e8deb481a023 {"sessionId": "35146ff1c0add484ef45e8deb481a023"}
+2018-08-11 14:32:47,781 urllib3.connectionpool DEBUG http://127.0.0.1:64994 "DELETE /session/35146ff1c0add484ef45e8deb481a023 HTTP/1.1" 200 72
+2018-08-11 14:32:47,783 selenium.webdriver.remote.remote_connection DEBUG Finished Request

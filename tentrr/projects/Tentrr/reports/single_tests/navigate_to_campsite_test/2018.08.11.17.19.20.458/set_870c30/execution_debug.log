@@ -1,0 +1,69 @@
+2018-08-11 17:19:20,460 root INFO Test execution started: navigate_to_campsite_test
+2018-08-11 17:19:20,461 root INFO Browser: chrome
+2018-08-11 17:19:20,461 root INFO Using data: 
+    url: https://www.tentrr.com/s/sites/
+    search_value: Frog Pond
+    expected_value: Frog Pond
+
+2018-08-11 17:19:21,532 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized"]}}}
+2018-08-11 17:19:21,532 urllib3.connectionpool DEBUG Starting new HTTP connection (1): 127.0.0.1:63325
+2018-08-11 17:19:23,261 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session HTTP/1.1" 200 904
+2018-08-11 17:19:23,262 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:23,262 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/window/current/maximize {"windowHandle": "current", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:24,470 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/window/current/maximize HTTP/1.1" 200 72
+2018-08-11 17:19:24,470 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:24,471 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/url {"url": "https://www.tentrr.com/s/sites/", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:27,740 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/url HTTP/1.1" 200 72
+2018-08-11 17:19:27,741 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:27,741 root INFO Navigate to: 'https://www.tentrr.com/s/sites/'
+2018-08-11 17:19:27,743 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element {"using": "id", "value": "input-text", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:27,761 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element HTTP/1.1" 200 102
+2018-08-11 17:19:27,761 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:27,762 root DEBUG Element found
+2018-08-11 17:19:27,762 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-1/value {"text": "Frog Pond", "value": ["F", "r", "o", "g", " ", "P", "o", "n", "d"], "id": "0.7351490752680416-1", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:27,926 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-1/value HTTP/1.1" 200 72
+2018-08-11 17:19:27,926 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:27,927 root INFO Write 'Frog Pond' in element input-text
+2018-08-11 17:19:27,927 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element {"using": "id", "value": "search-btn-container", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:27,942 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element HTTP/1.1" 200 102
+2018-08-11 17:19:27,943 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:27,943 root DEBUG Element found
+2018-08-11 17:19:27,943 root INFO Click search-btn-container
+2018-08-11 17:19:27,943 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-2/click {"id": "0.7351490752680416-2", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:28,122 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-2/click HTTP/1.1" 200 72
+2018-08-11 17:19:28,123 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:28,123 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element {"using": "xpath", "value": "//*[contains(text(), \"Frog Pond\")]", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:28,283 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element HTTP/1.1" 200 102
+2018-08-11 17:19:28,284 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:28,284 root DEBUG Element found
+2018-08-11 17:19:28,284 root INFO Verify element '//*[contains(text(), "Frog Pond")]' contains text 'Frog Pond'
+2018-08-11 17:19:28,284 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-3/text {"id": "0.7351490752680416-3", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:28,410 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "GET /session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-3/text HTTP/1.1" 200 79
+2018-08-11 17:19:28,411 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:28,411 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element {"using": "xpath", "value": "//*[@class=\"search-page-list-boxes\"]/div[1]", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:28,503 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element HTTP/1.1" 200 102
+2018-08-11 17:19:28,504 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:28,504 root DEBUG Element found
+2018-08-11 17:19:28,504 root INFO Click //*[@class="search-page-list-boxes"]/div[1]
+2018-08-11 17:19:28,504 selenium.webdriver.remote.remote_connection DEBUG POST http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-4/click {"id": "0.7351490752680416-4", "sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:29,092 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "POST /session/1695eee6aeee59b0c78b272cf389d5fe/element/0.7351490752680416-4/click HTTP/1.1" 200 72
+2018-08-11 17:19:29,093 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:29,093 root INFO Waiting for 3 seconds
+2018-08-11 17:19:32,098 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/url {"sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:32,104 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "GET /session/1695eee6aeee59b0c78b272cf389d5fe/url HTTP/1.1" 200 137
+2018-08-11 17:19:32,105 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:32,114 root INFO Take screenshot error
+2018-08-11 17:19:32,114 selenium.webdriver.remote.remote_connection DEBUG GET http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe/screenshot {"sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:33,461 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "GET /session/1695eee6aeee59b0c78b272cf389d5fe/screenshot HTTP/1.1" 200 971130
+2018-08-11 17:19:33,466 selenium.webdriver.remote.remote_connection DEBUG Finished Request
+2018-08-11 17:19:33,472 root INFO error__2d0795ed
+2018-08-11 17:19:33,475 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/golem_framework-0.5.0-py3.6.egg/golem/test_runner/test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "/Users/yidong/golem/tentrr/projects/Tentrr/tests/navigate_to_campsite_test.py", line 17, in test
+    b = data['expected_text']
+KeyError: 'expected_text'
+2018-08-11 17:19:33,476 selenium.webdriver.remote.remote_connection DEBUG DELETE http://127.0.0.1:63325/session/1695eee6aeee59b0c78b272cf389d5fe {"sessionId": "1695eee6aeee59b0c78b272cf389d5fe"}
+2018-08-11 17:19:33,611 urllib3.connectionpool DEBUG http://127.0.0.1:63325 "DELETE /session/1695eee6aeee59b0c78b272cf389d5fe HTTP/1.1" 200 72
+2018-08-11 17:19:33,611 selenium.webdriver.remote.remote_connection DEBUG Finished Request
