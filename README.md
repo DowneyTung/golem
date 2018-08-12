@@ -1,4 +1,5 @@
 Golem - Test Automation Framework 
+
 ==================================================
 [![Build Status](https://travis-ci.org/lucianopuccio/golem.svg?branch=master)](https://travis-ci.org/lucianopuccio/golem)
 [![Documentation Status](https://readthedocs.org/projects/golem-framework/badge/?version=latest)](https://golem-framework.readthedocs.io/en/latest/?badge=latest)
@@ -6,7 +7,60 @@ Golem - Test Automation Framework
 [![Join the chat at https://gitter.im/golem-framework/golem](https://badges.gitter.im/golem-framework/golem.svg)](https://gitter.im/golem-framework/golem?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-Intro
+Instructions specifically for Running the Tentrr Test:
+--------------------------------------
+This framework works with python 3.4+ above. Make sure you have an initialized python3 env before you start cloning the project. 
+
+I recommend to use pipenv to intialize a virtual python3 env
+
+If you’re on MacOS, you can install Pipenv easily with Homebrew:
+
+```
+$ brew install pipenv
+```
+
+To initialize and spawn a python 3 virtual environment 
+
+```
+pipenv shell --three
+```
+
+git clone the project and check out Tentrr branch
+
+```
+git clone git@github.com:DowneyTung/golem.git 
+cd golem
+git checkout Tentrr
+```
+
+install the dependencies and setup
+
+```
+python setup.py install
+```
+
+cd into the tentrr directory and run the full_regression suite in parallel from command line
+```
+cd tentrr
+golem run Tentrr full_regression
+```
+
+if you want to run each test separately
+
+```
+golem run Tentrr map_pin_test
+golem run Tentrr navigate_to_campsite_test
+golem run Tentrr search_test
+```
+
+if you want to spwan up the UI interface for this test framework, you can also 
+```
+cd tentrr (if you are not in the tentrr directory)
+golem gui
+```
+
+
+Intro (Technically you can ignore the content below because it is not related to the Tentrr test, but do keep reading if you are interested in this test automation framework)
 --------------------------------------
 
 >Automate end to end tests in minutes, not hours.
