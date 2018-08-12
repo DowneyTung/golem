@@ -1,8 +1,0 @@
-13:45:01.940 INFO Test execution started: search_test
-13:45:01.940 INFO Browser: chrome
-13:45:04.890 INFO Navigate to: 'http://en.wikipedia.org/'
-13:45:05.171 INFO Write 'automation' in element searchInput
-13:45:05.185 INFO Click searchButton
-13:45:06.121 INFO Verify element 'firstHeading' contains text 'Automation'
-13:45:06.264 INFO Close driver
-13:45:08.468 INFO Test passed
