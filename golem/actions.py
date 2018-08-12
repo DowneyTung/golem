@@ -313,6 +313,21 @@ def get_current_url():
     """
     return browser.get_browser().current_url
 
+def get_current_title():
+    """Return the current browser title   
+    """
+    return browser.get_browser().title
+
+def switch_window(window_name):
+    """switch window by name   
+    """
+    browser.get_browser().switch_to_window(window_name)    
+
+def window_number_gen(number, window_name):
+    """Give different window different name   
+    """
+    a = browser.get_browser().window_handles[number]    
+    store(window_name, a)    
 
 def mouse_hover(element):
     """Hover an element with the mouse
