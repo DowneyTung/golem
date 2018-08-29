@@ -1,0 +1,92 @@
+# version: '3.0'
+
+# # services:
+# #     golem-app:
+# #       build: .
+# #       dockerfile: Dockerfile
+# #       command: golem gui
+# #       volumes:
+# #         - . :/usr/src/app
+# #       ports:
+# #         - 5000:5000
+
+# # To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# # Add the `-d` flag at the end for detached execution
+# services:
+#   selenium-hub:
+#     image: selenium/hub:3.14.0-arsenic
+#     container_name: selenium-hub
+#     ports:
+#       - "4444:4444" 
+  
+#   chrome:
+#     image: selenium/node-chrome-debug:3.14.0-arsenic
+#     volumes:
+#       - /dev/shm:/dev/shm    
+#     depends_on:
+#       - selenium-hub
+#     environment:
+#       - HUB_HOST=selenium-hub
+#       - HUB_PORT=4444
+  
+#   firefox:
+#     image: selenium/node-firefox-debug:3.14.0-arsenic
+#     volumes:
+#       - /dev/shm:/dev/shm    
+#     depends_on:
+#       - selenium-hub
+#     environment:
+#       - HUB_HOST=selenium-hub
+#       - HUB_PORT=4444
+
+#   golem-test:
+#     image: downey/golem:1.0
+#     ports: 
+#       - "5000:5000"
+#     depends_on:
+#       - selenium-hub
+#       - firefox
+#       - chrome         
+
+
+version: "3"
+services:
+    zalenium:
+        image: "dosel/zalenium"
+        container_name: zalenium
+        hostname: zalenium
+        tty: true
+        volumes:
+            - '/tmp/videos:/home/seluser/videos'
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/usr/local/bin/docker:/usr/local/bin/docker'
+        ports:
+            - 4444:4444
+        command: >
+          start --chromeContainers 2
+                --firefoxContainers 2
+                --maxDockerSeleniumContainers 8
+                --screenWidth 800 --screenHeight 600
+                --timeZone "America/New_York"
+                --videoRecordingEnabled true
+                --sauceLabsEnabled false
+                --browserStackEnabled false
+                --testingBotEnabled false
+                --startTunnel false
+        environment:
+          - HOST_UID
+          - HOST_GID
+          - SAUCE_USERNAME
+          - SAUCE_ACCESS_KEY
+          - BROWSER_STACK_USER
+          - BROWSER_STACK_KEY
+          - TESTINGBOT_KEY
+          - TESTINGBOT_SECRET
+
+    golem-test:
+      image: downey/golem:1.0
+      ports: 
+        - "5000:5000"
+      depends_on:
+        - zalenium
+

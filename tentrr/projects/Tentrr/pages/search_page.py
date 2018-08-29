@@ -1,5 +1,5 @@
-search_input = ('id', 'input-text')
-search_button = ('id', 'search-btn-container')
+search_input = ('xpath', '//input[@type="text"]')
+search_button = ('xpath','//div[@class="header__autocomplete-input-action"]' )
 first_result_header = ('xpath', '//*[contains(text(), "Frog Pond")]')
 first_search_result = ('xpath', '//*[@class="search-page-list-boxes"]/div[1]')
 search_result_context = ('xpath', '//*[contains(text(), "enjoy the music of the frogs.")]')
