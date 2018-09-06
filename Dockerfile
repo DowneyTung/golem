@@ -1,5 +1,5 @@
 FROM alpine:latest
-FROM python:3.5-alpine
+FROM python:3.7-alpine
 MAINTAINER Downey "downeytqualitya@gmail.com"
 
 WORKDIR /usr/src/app
@@ -9,8 +9,7 @@ COPY . /usr/src/app
   
 RUN python setup.py install \
     &&echo $PWD 
-WORKDIR tentrr
+WORKDIR H5G
 RUN echo $PWD
-#ENTRYPOINT golem run Tentrr full_regression
 CMD golem gui
-#CMD["golem","run","Tentrr","full_regression”]
+

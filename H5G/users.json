@@ -1,0 +1,14 @@
+[
+    {
+        "id": "b4b548fe",
+        "username": "admin",
+        "password": "admin",
+        "is_admin": true,
+        "gui_projects": [
+            "*"
+        ],
+        "report_projects": [
+            "*"
+        ]
+    }
+]

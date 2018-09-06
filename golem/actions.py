@@ -57,21 +57,21 @@ def accept_alert():
 
 def activate_browser(browser_id):
     """Activates a browser by the browser_id
-    
+
     Parameters:
     browser_id : value
     """
     step_message = 'Activate browser {}'.format(browser_id)
-    browser.activate_browser(browser_id)    
+    browser.activate_browser(browser_id)
     _capture_or_add_step(step_message, False)
 
 
 def add_cookie(cookie_dict):
     """Add a cookie to the current session.
-    
+
     Required keys are: "name" and "value"
     Optional keys are: "path", "domain", "secure", "expiry"
-    
+
     Note:
     * If a cookie with the same name exists, it will be overriden.
     * This function cannot set the domain of a cookie, the domain URL
@@ -202,12 +202,14 @@ def debug():
     try:
         # optional, enables Up/Down/History in the console
         # not available in windows
-        import readline  
+        import readline
     except:
         pass
     import code
+
     def console_exit():
         raise SystemExit
+
     def console_help():
         msg = ('# start a browser and find an element:\n'
                'navigate(\'http://..\')\n'
@@ -309,25 +311,29 @@ def get_cookies():
 
 
 def get_current_url():
-    """Return the current browser URL    
+    """Return the current browser URL
     """
     return browser.get_browser().current_url
 
+
 def get_current_title():
-    """Return the current browser title   
+    """Return the current browser title
     """
     return browser.get_browser().title
 
+
 def switch_window(window_name):
-    """switch window by name   
+    """switch window by name
     """
-    browser.get_browser().switch_to_window(window_name)    
+    browser.get_browser().switch_to_window(window_name)
+
 
 def window_number_gen(number, window_name):
-    """Give different window different name   
+    """Give different window different name
     """
-    a = browser.get_browser().window_handles[number]    
-    store(window_name, a)    
+    a = browser.get_browser().window_handles[number]
+    store(window_name, a)
+
 
 def mouse_hover(element):
     """Hover an element with the mouse
@@ -343,6 +349,50 @@ def mouse_hover(element):
     #_capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
 
+def click_on_target_area_with_offset(area_name, base_element, xoffset, yoffset):
+    """Move to an base_element and then move the mouse to the offset location with the mouse and then click on specified area
+    Parameters:
+    area_name : specify the element name in certain area
+    base_element : the base element for moving the mouse left and right
+    offset_x: int
+    offset_y: int
+    """
+    _run_wait_hook()
+    driver = browser.get_browser()
+    webelement = driver.find(base_element)
+    step_message = 'Mouse hover to base_element \'{0}\' and then moveoffset by (x: {1}, y: {2},) and then click on the specified area with name as {3} '.format(webelement.name, xoffset, yoffset, area_name)
+    execution.logger.info(step_message)
+    move_to_target_area = ActionChains(driver).move_to_element_with_offset(webelement, xoffset, yoffset)
+    move_to_target_area.click().perform()
+    #_capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
+
+
+def get_current_window_rect():
+    """Gets the x, y coordinates of the window as well as height and width of the current window.
+    Parameters:
+    """
+    step_message = 'get_current_windows x y coordinates, height and width'
+    driver = browser.get_browser()
+    a = driver.get_window_rect()
+    execution.logger.info(step_message + str(a))
+    _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
+
+
+def get_element_location(element):
+    """Gets the x, y coordinates, height, and width of the webelement
+    Parameters:
+    element: element
+    """
+    _run_wait_hook()
+    driver = browser.get_browser()
+    webelement = driver.find(element)
+    location = webelement.location
+    size = webelement.size
+    step_message = 'get_element_location x y coordinates as: {0}, height and width as: {1}'.format(location, size)
+    execution.logger.info(step_message)
+    _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
+
+
 def navigate(url):
     """Navigate to a URL
     Parameters:
@@ -353,7 +403,7 @@ def navigate(url):
     driver.get(url)
     execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
-    
+
 
 def open_browser(browser_id=None):
     """Open a new browser. The param browser_id is optional
@@ -365,7 +415,7 @@ def open_browser(browser_id=None):
     browser.open_browser(browser_id)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
-    
+
 def press_key(element, key):
     """Press a given key in the element.
     Parameters:
@@ -413,9 +463,9 @@ def refresh_page():
     _run_wait_hook()
     step_message = 'Refresh page'
     browser.get_browser().refresh()
-    #get_browser().execute_script("location.reload()")
+    # get_browser().execute_script("location.reload()")
     #browser = get_browser()
-    #browser.get(browser.current_url);
+    # browser.get(browser.current_url);
     execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
@@ -577,7 +627,7 @@ def verify_cookie_value(name, value):
         msg = ('Expected cookie "{}" value to be "{}" but was "{}"'
                .format(name, value, cookie['value']))
         raise Exception(msg)
-         
+
 
 def verify_cookie_exists(name):
     """Verify a cookie exists in the current session.
@@ -799,14 +849,13 @@ def wait(seconds):
 #         except:
 #             still_exists = False
 #     # else:
-#     #     execution.logger.debug('Element {} was not found, continuing...'.format(element)) 
+#     #     execution.logger.debug('Element {} was not found, continuing...'.format(element))
 
 
 # def wait_for_element_clickable(element, timeout=20):
 #     browser = get_browser()
 #     element = WebDriverWait(browser, timeout).until(
 #         EC.element_to_be_clickable())
-
 
 
 def wait_for_element_not_exist(element, timeout=20):
@@ -882,7 +931,7 @@ def wait_for_element_enabled(element, timeout=20):
     start_time = time.time()
     timed_out = False
     #webelement = None
-    #try:
+    # try:
     webelement = browser.get_browser().find(element, timeout)
     enabled = webelement.is_enabled()
     while not enabled and not timed_out:
@@ -891,7 +940,6 @@ def wait_for_element_enabled(element, timeout=20):
         enabled = webelement.is_displayed()
         if time.time() - start_time > timeout:
             timed_out = True
-
 
 
 def wait_for_element_visible(element, timeout=20):
@@ -920,7 +968,7 @@ def wait_for_element_visible(element, timeout=20):
 def http_get(url, headers={}, params={}, verify_ssl_cert=True):
     """Perform an HTTP GET request to the given URL.
     Headers and params are optional dictionaries.
-    
+
     Parameters:
     url : value
     headers (optional, dict) : value
@@ -937,7 +985,7 @@ def http_get(url, headers={}, params={}, verify_ssl_cert=True):
 def http_post(url, headers={}, data={}, verify_ssl_cert=True):
     """Perform an HTTP POST request to the given URL.
     Headers and data are optional dictionaries.
-    
+
     Parameters:
     url : value
     headers (optional, dict) : value
