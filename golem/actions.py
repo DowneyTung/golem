@@ -187,7 +187,7 @@ def capture_crop_compare_image(base_image, x, y, h, w, tolerance_rate=0.85):
         resized_img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
         crop_img = resized_img[y:y + h, x:x + w]
     else:
-        crop_image = img[y:y + h, x:x + w]
+        crop_img = img[y:y + h, x:x + w]
 
     # Generate the image path for saving the cropped image
     img_id_2 = str(uuid.uuid4())[:8]
