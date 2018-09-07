@@ -48,7 +48,7 @@ def generate_file_structure_dict(full_path, original_path=None):
     all_sub_elements = os.listdir(full_path)
     files = []
     directories = []
-    for elem in all_sub_elements: 
+    for elem in all_sub_elements:
         if os.path.isdir(os.path.join(full_path, elem)):
             if elem not in ['__pycache__']:
                 directories.append(elem)
@@ -135,7 +135,7 @@ def new_directory_of_type(root_path, project, parents, dir_name, dir_type):
     parents is a list of parent directories.
     dir_type should be in ['tests', 'suites', 'pages']"""
     errors = []
-    if dir_type not in ['tests', 'suites', 'pages']:
+    if dir_type not in ['tests', 'suites', 'pages', 'base_images']:
         errors.append('{} is not a valid dir_type'.format(dir_type))
     else:
         parents = os.sep.join(parents)

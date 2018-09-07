@@ -68,7 +68,7 @@ services:
                 --maxDockerSeleniumContainers 8
                 --screenWidth 800 --screenHeight 600
                 --timeZone "America/New_York"
-                --videoRecordingEnabled true
+                --videoRecordingEnabled false
                 --sauceLabsEnabled false
                 --browserStackEnabled false
                 --testingBotEnabled false

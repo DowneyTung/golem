@@ -159,6 +159,61 @@ def capture(message=''):
     step(full_message)
 
 
+def capture_crop_compare_image(base_image, x, y, h, w, tolerance_rate=0.85):
+    """Take a screenshot of current webpage, crop the screenshot by x, y coordinates,Heights, and width; then compare the cropped image with target image, finally it should return true or false
+    Parameters:
+    base_image: base_image name specifed in the base_images folder, no .png required
+    x: top left x coordinate
+    y: top left y coordinates
+    h: height of the block
+    w: width of the block
+    tolerance_rate: the image comparison tolerance rate, range from [0,1], 1 would be mean perfect match, the default value is 0.85
+    """
+    _run_wait_hook()
+    driver = browser.get_browser()
+    # store image at this point, the target directory is already
+    # created since the beginning of the test, stored in golem.core.report_directory
+    img_id = str(uuid.uuid4())[:8]
+    execution.logger.info('Take screenshot and save as {}.png'.format(img_id))
+    img_path = os.path.join(execution.report_directory, '{}.png'.format(img_id))
+    base_image_path = execution.report_directory.split('reports/')[0] + "base_images"
+    target_img_path = os.path.join(base_image_path, '{}.png'.format(base_image))
+    # Save current web page as screenshot
+    driver.get_screenshot_as_file(img_path)
+    img = cv2.imread(img_path)
+    # check the image size
+    # TODO, need to remove the hard coded image size
+    if not (img.size == 1262400):
+        resized_img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+        crop_img = resized_img[y:y + h, x:x + w]
+    else:
+        crop_image = img[y:y + h, x:x + w]
+
+    # Generate the image path for saving the cropped image
+    img_id_2 = str(uuid.uuid4())[:8]
+    img_path_2 = os.path.join(execution.report_directory, '{}.png'.format(img_id_2))
+
+    # Save the cropped image in local report dir
+    b = cv2.imwrite(img_path_2, crop_img)
+    execution.logger.info('Being able to save cropped image? {0} \n And Crop the image and save as {1}.png'.format(b, img_id_2))
+    target_img = cv2.imread(target_img_path)
+
+    # convert the images to gray and do comparison
+    gray_crop_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+    gray_target_img = cv2.cvtColor(target_img, cv2.COLOR_BGR2GRAY)
+    (score, diff) = compare_ssim(gray_crop_img, gray_target_img, full=True)
+    # diff = (diff * 255).astype("uint8")
+    execution.logger.info("The score value are: score {0}".format(score))
+
+    # Make sure the image comparison score is higher than the tolerance value
+    if score >= tolerance_rate:
+        execution.logger.info("Great! The score value ({0}) is higher than the tolerance rate ({1})".format(score, tolerance_rate))
+        return True
+    else:
+        execution.logger.info("Oh no! The score value ({0}) is lower than the tolerance rate ({1}). Please check why the two images is not matching".format(score, tolerance_rate))
+        return False
+
+
 def clear(element):
     """Clear an input
     Parameters:
@@ -364,7 +419,7 @@ def click_on_target_area_with_offset(area_name, base_element, xoffset, yoffset):
     execution.logger.info(step_message)
     move_to_target_area = ActionChains(driver).move_to_element_with_offset(webelement, xoffset, yoffset)
     move_to_target_area.click().perform()
-    #_capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
+    _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
 
 def get_current_window_rect():
@@ -401,6 +456,8 @@ def navigate(url):
     step_message = 'Navigate to: \'{0}\''.format(url)
     driver = browser.get_browser()
     driver.get(url)
+    # driver.maximize_window()
+    driver.set_window_size(800, 600)
     execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
@@ -960,6 +1017,34 @@ def wait_for_element_visible(element, timeout=20):
     webelement = browser.get_browser().find(element)
     while not webelement.is_displayed() and not timed_out:
         execution.logger.debug('Element is not visible, waiting..')
+        time.sleep(0.5)
+        if time.time() - start_time > timeout:
+            timed_out = True
+
+
+def wait_for_element_attribute_visible(element, attribute_name, expected_attribute_value, timeout=30):
+    """Wait for element attribute to be visible.
+    After timeout this won't throw an exception.
+    Parameters:
+    element : element
+    attribute_name: The attribute name you are looking for
+    expected_attribute_value: The expected attribute value for comparison
+    timeout (optional, default: 30) : value
+    """
+    try:
+        timeout = int(timeout)
+    except:
+        raise Exception('Timeout should be digits only')
+    _run_wait_hook()
+    execution.logger.info('Waiting for element\'s attribute {} to be visible'.format(attribute_name))
+    start_time = time.time()
+    timed_out = False
+    webelement = browser.get_browser().find(element)
+    attribute_value = None
+    while not attribute_value == expected_attribute_value or not timed_out:
+        execution.logger.debug('Element\'s attribute is not visible, waiting..')
+        attribute_value = webelement.get_attribute(attribute_name)
+        execution.logger.debug('The attribute value is {}'.format(attribute_value))
         time.sleep(0.5)
         if time.time() - start_time > timeout:
             timed_out = True

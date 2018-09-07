@@ -41,7 +41,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing',
-        ],
+    ],
     keywords='test automation framework selenium webdriver',
     packages=find_packages(),
     setup_requires=['setuptools-pep8'],
@@ -49,7 +49,10 @@ setup(
                       'Flask-login>=0.4.0',
                       'selenium>=3.6.0',
                       'requests>=2.18.4',
-                      'py-webdriver-manager'
+                      'py-webdriver-manager',
+                      'opencv-python',
+                      'scikit-image',
+                      'imutils'
                       ],
     tests_require=['pytest'],
     entry_points={

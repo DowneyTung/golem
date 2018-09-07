@@ -58,7 +58,7 @@ def open_browser(browser_id=None):
             msg = '{} setting is not defined'.format(exec_path_setting)
             execution.logger.error(msg)
             raise Exception(msg)
-    
+
     @contextmanager
     def validate_remote_url(remote_url):
         if remote_url:
@@ -81,6 +81,7 @@ def open_browser(browser_id=None):
         with validate_exec_path('chrome', 'chromedriver_path', settings) as ex_path:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--start-maximized')
+            chrome_options.add_argument('--disable-infobars')
             driver = GolemChromeDriver(executable_path=ex_path,
                                        chrome_options=chrome_options)
     # Chrome remote
@@ -107,7 +108,7 @@ def open_browser(browser_id=None):
     # Edge
     elif browser_definition['name'] == 'edge':
         with validate_exec_path('edge', 'edgedriver_path', settings) as ex_path:
-            driver = GolemEdgeDriver(executable_path=ex_path)        
+            driver = GolemEdgeDriver(executable_path=ex_path)
     # Edge remote
     elif browser_definition['name'] == 'edge-remote':
         with validate_remote_url(settings['remote_url']) as remote_url:

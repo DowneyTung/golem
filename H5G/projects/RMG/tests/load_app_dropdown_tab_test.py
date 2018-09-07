@@ -1,5 +1,5 @@
 
-description = 'Try to navigate to the lobby and change the bet option for Gypsy game'
+description = 'Try to navigate to the lobby and check the dropdown tab related to paytable for hoot_loot game'
 
 pages = ['partner_game_lobby']
 
@@ -10,16 +10,15 @@ def setup(data):
 
 def test(data):
     navigate(data.env.rmg_url)
-    click(partner_game_lobby.gypsy_game_icon)
+    click(partner_game_lobby.hoot_loot_game_icon)
     wait_for_element_attribute_visible(partner_game_lobby.load_anim, "style", "display: none;")
     wait(15)
     get_current_window_rect()
     get_element_location(partner_game_lobby.base_element)
     capture_crop_compare_image('rmg_spin_btn', 647, 445, 40, 70)
-    click_on_target_area_with_offset('change_bet', partner_game_lobby.base_element, -350, 464)
+    click_on_target_area_with_offset('dropdown_tab', partner_game_lobby.base_element, 150, 15)
     wait(5)
-    get_element_location(partner_game_lobby.base_element)
-    click_on_target_area_with_offset('choose_one_type_of_bet', partner_game_lobby.base_element, -360, 325)
+    click_on_target_area_with_offset('cancle_drop_down_tab', partner_game_lobby.base_element, -150, 15)
     wait(1)
     capture_crop_compare_image('rmg_spin_btn', 647, 445, 40, 70)
     wait(5)

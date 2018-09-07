@@ -1,3 +1,5 @@
 // Settings defined here will override global settings
 {
+// Take a screenshot on every step
+"screenshot_on_step": true
 }

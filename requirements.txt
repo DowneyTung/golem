@@ -4,3 +4,6 @@ selenium
 pytest
 requests
 py-webdriver-manager
+opencv-python
+scikit-image
+imutils
