@@ -20,6 +20,11 @@ from golem.core.exceptions import TextNotPresent, ElementNotFound
 from golem import browser
 from golem import execution
 
+import imutils
+import cv2
+import numpy as np
+import pytesseract
+
 
 def _run_wait_hook():
     wait_hook = execution.settings['wait_hook']
@@ -159,15 +164,67 @@ def capture(message=''):
     step(full_message)
 
 
-def capture_crop_compare_image(base_image, x, y, h, w, tolerance_rate=0.85):
-    """Take a screenshot of current webpage, crop the screenshot by x, y coordinates,Heights, and width; then compare the cropped image with target image, finally it should return true or false
+# def capture_crop_compare_image(base_image, x, y, h, w, tolerance_rate=0.85):
+#     """Take a screenshot of current webpage, crop the screenshot by x, y coordinates,Heights, and width; then compare the cropped image with target image, finally it should return true or false
+#     Parameters:
+#     base_image: base_image name specifed in the base_images folder, no .png required
+#     x: top left x coordinate
+#     y: top left y coordinates
+#     h: height of the block
+#     w: width of the block
+#     tolerance_rate: the image comparison tolerance rate, range from [0,1], 1 would be mean perfect match, the default value is 0.85
+#     """
+#     _run_wait_hook()
+#     driver = browser.get_browser()
+#     # store image at this point, the target directory is already
+#     # created since the beginning of the test, stored in golem.core.report_directory
+#     img_id = str(uuid.uuid4())[:8]
+#     execution.logger.info('Take screenshot and save as {}.png'.format(img_id))
+#     img_path = os.path.join(execution.report_directory, '{}.png'.format(img_id))
+#     base_image_path = execution.report_directory.split('reports/')[0] + "base_images"
+#     target_img_path = os.path.join(base_image_path, '{}.png'.format(base_image))
+#     # Save current web page as screenshot
+#     driver.get_screenshot_as_file(img_path)
+#     img = cv2.imread(img_path)
+#     # check the image size
+#     # TODO, need to remove the hard coded image size
+#     if not (img.size == 1262400):
+#         resized_img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+#         crop_img = resized_img[y:y + h, x:x + w]
+#     else:
+#         crop_img = img[y:y + h, x:x + w]
+
+#     # Generate the image path for saving the cropped image
+#     img_id_2 = str(uuid.uuid4())[:8]
+#     img_path_2 = os.path.join(execution.report_directory, '{}.png'.format(img_id_2))
+
+#     # Save the cropped image in local report dir
+#     b = cv2.imwrite(img_path_2, crop_img)
+#     execution.logger.info('Being able to save cropped image? {0} \n And Crop the image and save as {1}.png'.format(b, img_id_2))
+#     target_img = cv2.imread(target_img_path)
+
+#     # convert the images to gray and do comparison
+#     gray_crop_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+#     gray_target_img = cv2.cvtColor(target_img, cv2.COLOR_BGR2GRAY)
+#     (score, diff) = compare_ssim(gray_crop_img, gray_target_img, full=True)
+#     # diff = (diff * 255).astype("uint8")
+#     execution.logger.info("The score value are: score {0}".format(score))
+
+#     # Make sure the image comparison score is higher than the tolerance value
+#     if score >= tolerance_rate:
+#         execution.logger.info("Great! The score value ({0}) is higher than the tolerance rate ({1})".format(score, tolerance_rate))
+#         return True
+#     else:
+#         execution.logger.info("Oh no! The score value ({0}) is lower than the tolerance rate ({1}). Please check why the two images is not matching".format(score, tolerance_rate))
+#         return False
+
+
+def verify_element_exist_by_coordinates(base_image, default_image_size=1262400, threshold=0.8):
+    """Take a screenshot of current webpage, and make the base image compare to do a template matching to the scaled screenshot, then finally get the coordinates for the where the template image is in the screenshot
     Parameters:
-    base_image: base_image name specifed in the base_images folder, no .png required
-    x: top left x coordinate
-    y: top left y coordinates
-    h: height of the block
-    w: width of the block
-    tolerance_rate: the image comparison tolerance rate, range from [0,1], 1 would be mean perfect match, the default value is 0.85
+    base_image : image name for base image
+    default_image_size: the default image size is 1262400 when the web window is limited to 800 * 600
+    threshold: the threshold for determing whether the element exist or not
     """
     _run_wait_hook()
     driver = browser.get_browser()
@@ -176,42 +233,140 @@ def capture_crop_compare_image(base_image, x, y, h, w, tolerance_rate=0.85):
     img_id = str(uuid.uuid4())[:8]
     execution.logger.info('Take screenshot and save as {}.png'.format(img_id))
     img_path = os.path.join(execution.report_directory, '{}.png'.format(img_id))
-    base_image_path = execution.report_directory.split('reports/')[0] + "base_images"
-    target_img_path = os.path.join(base_image_path, '{}.png'.format(base_image))
+
     # Save current web page as screenshot
     driver.get_screenshot_as_file(img_path)
-    img = cv2.imread(img_path)
-    # check the image size
-    # TODO, need to remove the hard coded image size
-    if not (img.size == 1262400):
-        resized_img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
-        crop_img = resized_img[y:y + h, x:x + w]
+
+    # Create direcotory for finding the target base image for template matching in base images folder
+    base_image_path = execution.report_directory.split('reports/')[0] + "base_images"
+    target_img_path = os.path.join(base_image_path, '{}.png'.format(base_image))
+
+    # load the base image, convert it to grayscale, and detect edges
+    template = cv2.imread(target_img_path)
+    template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+    template = cv2.Canny(template, 50, 200)
+    (tH, tW) = template.shape[:2]
+    execution.logger.info('The heigh and width of the base image are (Height: {0}, Width: {1})'.format(tH, tW))
+
+    # load the screenshot and convert it to gray scale
+    image = cv2.imread(img_path)
+    height, width = image.shape[:2]
+    execution.logger.info('The heigh and width of the screenshot are (Height: {0}, Width: {1})'.format(height, width))
+    # Convert the screenshot to Gray
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    found = None
+    flag = False
+    # loop over the scales of the image
+    for scale in np.linspace(0.2, 1.0, 20)[::-1]:
+        # Resize the image according to the scale, and keep track of ratio of the resizing
+        resized = imutils.resize(gray, width=int(gray.shape[1] * scale))
+        r = gray.shape[1] / float(resized.shape[1])
+
+        # if the resized image is smaller than the template, then break from the loop
+        if resized.shape[0] < tH or resized.shape[1] < tW:
+            break
+
+        # detect edges in the resized, grayscale image and apply template
+        # matching to find the template in the image
+        edged = cv2.Canny(resized, 50, 200)
+        result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF)
+        (_, maxVal, _, maxLoc) = cv2.minMaxLoc(result)
+
+        # if we have found a new maximum correlation value, then update
+        # the bookkeeping variable
+        if found is None or maxVal > found[0]:
+            found = (maxVal, maxLoc, r)
+        for i in result:
+            if i.any() > threshold:
+                flag = True
+    # unpack the bookkeeping varaible and compute the (x, y) coordinates
+    # of the bounding box based on the resized ratio
+    (_, maxLoc, r) = found
+    print((_, maxLoc, r))
+    (startX, startY) = (int(maxLoc[0] * r), int(maxLoc[1] * r))
+    execution.logger.debug('The start coordinate for the element is (startX: {}, startY: {})'.format(startX, startY))
+    (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
+    execution.logger.debug('The end coordinate for the element is (endX: {}, endY: {})'.format(endX, endY))
+
+    if (image.size > default_image_size):
+        ratio = math.sqrt(image.size / default_image_size)
+        x_coordinate = (startX + endX) / (2 * ratio)
+        y_coordinate = (startY + endY) / (2 * ratio)
+        store('element_x_coordinate', x_coordinate)
+        store('element_y_coordinate', y_coordinate)
+        execution.logger.info('the element coordinate on the current screen is (x: {}, y: {})'.format(x_coordinate, y_coordinate))
     else:
-        crop_img = img[y:y + h, x:x + w]
+        x_coordinate = (startX + endX) / 2
+        y_coordinate = (startY + endY) / 2
+        store('element_x_coordinate', x_coordinate)
+        store('element_y_coordinate', y_coordinate)
+        execution.logger.info('the element coordinate on the current screen is (x: {}, y: {})'.format(x_coordinate, y_coordinate))
+    print(flag)
+    return flag
 
-    # Generate the image path for saving the cropped image
-    img_id_2 = str(uuid.uuid4())[:8]
-    img_path_2 = os.path.join(execution.report_directory, '{}.png'.format(img_id_2))
 
-    # Save the cropped image in local report dir
-    b = cv2.imwrite(img_path_2, crop_img)
-    execution.logger.info('Being able to save cropped image? {0} \n And Crop the image and save as {1}.png'.format(b, img_id_2))
-    target_img = cv2.imread(target_img_path)
+def extract_text_from_image(image_path):
+    """Extract the text from a target image using tesseract
+    Parameters:
+    image path: full image path ending with file name
+    """
+    _run_wait_hook()
+    image = cv2.imread(image_path)
+    image_text = pytesseract.image_to_string(image)
+    execution.logger.info('The text reads from the {0} is \' {1} \''.format(image_path, image_text))
+    return image_text
 
-    # convert the images to gray and do comparison
-    gray_crop_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
-    gray_target_img = cv2.cvtColor(target_img, cv2.COLOR_BGR2GRAY)
-    (score, diff) = compare_ssim(gray_crop_img, gray_target_img, full=True)
-    # diff = (diff * 255).astype("uint8")
-    execution.logger.info("The score value are: score {0}".format(score))
 
-    # Make sure the image comparison score is higher than the tolerance value
-    if score >= tolerance_rate:
-        execution.logger.info("Great! The score value ({0}) is higher than the tolerance rate ({1})".format(score, tolerance_rate))
+def verify_element_exist_by_text(target_text):
+    """Take a screenshot of current webpage, extract the text from current webpage, and do a string matching to see whether the target text is existed in current webpage.
+    Parameters:
+    target_text: target text for comparison
+    """
+    _run_wait_hook()
+    driver = browser.get_browser()
+    # store image at this point, the target directory is already
+    # created since the beginning of the test, stored in golem.core.report_directory
+    img_id = str(uuid.uuid4())[:8]
+    execution.logger.info('Take screenshot and save as {}.png'.format(img_id))
+    img_path = os.path.join(execution.report_directory, '{}.png'.format(img_id))
+
+    # Save current web page as screenshot
+    driver.get_screenshot_as_file(img_path)
+
+    # load the screenshot and extract the text from the screenshot
+    screenshot_text = extract_text_from_image(img_path)
+    execution.logger.info('The text in current webpage are printed as {}'.format(screenshot_text))
+
+    # Verify the target text exist in the screenshot text
+    if target_text in screenshot_text:
+        execution.logger.info('Congrats! We find the {0} exists in current Webpage'.format(target_text))
         return True
     else:
-        execution.logger.info("Oh no! The score value ({0}) is lower than the tolerance rate ({1}). Please check why the two images is not matching".format(score, tolerance_rate))
+        execution.logger.info('Ooops! We could not find the {0} exists in current Webpage..please try again'.format(target_text))
         return False
+
+
+def wait_while_text_element_present(target_text, timeout=60):
+    """Wait while the element text is present on the current webpage
+    After timeout this won't throw an exception.
+    Parameters:
+    target_text : the target text for comparison
+    timeout (optional, default: 60) : value
+    """
+    try:
+        timeout = int(timeout)
+    except:
+        raise Exception('Timeout should be digits only')
+    _run_wait_hook()
+    execution.logger.info('Waiting while element text \' {} \' is visible'.format(target_text))
+    start_time = time.time()
+    timed_out = False
+    while verify_element_exist_by_text(target_text) and not timed_out:
+        execution.logger.info('Element text {} is still present, waiting..'.format(target_text))
+        time.sleep(0.5)
+        if time.time() - start_time > timeout:
+            timed_out = True
+    execution.logger.info('We successfully finished waiting while the element text {0} is visible, while do we reach the timeout? {1} '.format(target_text, timed_out))
 
 
 def clear(element):
@@ -404,20 +559,24 @@ def mouse_hover(element):
     #_capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
 
-def click_on_target_area_with_offset(area_name, base_element, xoffset, yoffset):
+def click_on_target_area_with_coordinates(area_name, base_element, x_coordinate, y_coordinate):
     """Move to an base_element and then move the mouse to the offset location with the mouse and then click on specified area
     Parameters:
     area_name : specify the element name in certain area
     base_element : the base element for moving the mouse left and right
-    offset_x: int
-    offset_y: int
+    x_coordinate: x coordinate of the target element
+    y_coordinate: int
     """
     _run_wait_hook()
     driver = browser.get_browser()
     webelement = driver.find(base_element)
-    step_message = 'Mouse hover to base_element \'{0}\' and then moveoffset by (x: {1}, y: {2},) and then click on the specified area with name as {3} '.format(webelement.name, xoffset, yoffset, area_name)
+    e_location = webelement.location
+    print("The element location is {}".format(e_location))
+    step_message = 'Mouse hover to base_element \'{0}\' and then moveoffset by (x: {1}, y: {2},) and then click on the specified area with name as {3} '.format(webelement.name, x_coordinate, y_coordinate, area_name)
     execution.logger.info(step_message)
-    move_to_target_area = ActionChains(driver).move_to_element_with_offset(webelement, xoffset, yoffset)
+    move_x = x_coordinate - e_location['x']
+    move_y = y_coordinate - e_location['y']
+    move_to_target_area = ActionChains(driver).move_to_element_with_offset(webelement, move_x, move_y)
     move_to_target_area.click().perform()
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 

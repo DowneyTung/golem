@@ -12,13 +12,15 @@ def test(data):
     navigate(data.env.rmg_url)
     click(partner_game_lobby.triple_monkey_game_icon)
     wait_for_element_attribute_visible(partner_game_lobby.load_anim, "style", "display: none;")
-    wait(15)
+    wait(3)
+    wait_while_text_element_present('VA ULT®')
+    wait(2)
+    wait_while_text_element_present('Loading up the reels!')
     get_current_window_rect()
     get_element_location(partner_game_lobby.base_element)
-    assert_true(capture_crop_compare_image('rmg_spin_btn', 647, 445, 40, 70))
-    click_on_target_area_with_offset('spin_button', partner_game_lobby.base_element, 120, 464)
+    assert_true(verify_element_exist_by_coordinates('rmg_spin_btn'))
+    click_on_target_area_with_coordinates('spin_button', partner_game_lobby.base_element, execution.data['element_x_coordinate'], execution.data['element_y_coordinate'])
     wait(5)
-    assert_true(capture_crop_compare_image('rmg_spin_btn', 647, 445, 40, 70))
 
 
 def teardown(data):

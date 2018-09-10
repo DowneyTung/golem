@@ -50,8 +50,6 @@ setup(
                       'selenium>=3.6.0',
                       'requests>=2.18.4',
                       'py-webdriver-manager',
-                      'opencv-python',
-                      'scikit-image',
                       'imutils'
                       ],
     tests_require=['pytest'],
