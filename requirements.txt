@@ -6,5 +6,7 @@ requests
 py-webdriver-manager
 opencv-python
 imutils
-scikit-image
+numpy
+pytesseract
+tesseract
 

@@ -1,6 +1,0 @@
-search_input = ('xpath', '//input[@type="text"]')
-search_button = ('xpath','//div[@class="header__autocomplete-input-action"]' )
-first_result_header = ('xpath', '//*[contains(text(), "Frog Pond")]')
-first_search_result = ('xpath', '//*[@class="search-page-list-boxes"]/div[1]')
-search_result_context = ('xpath', '//*[contains(text(), "enjoy the music of the frogs.")]')
-map_pin_pioneer_farm = ('css', '#search-page > div > aside > div > div.leaflet-pane.leaflet-map-pane > div.leaflet-pane.leaflet-marker-pane > div.leaflet-marker-icon.site-pin.pin-pioneer-farm.leaflet-zoom-animated.leaflet-interactive')

@@ -1,54 +1,3 @@
-# version: '3.0'
-
-# # services:
-# #     golem-app:
-# #       build: .
-# #       dockerfile: Dockerfile
-# #       command: golem gui
-# #       volumes:
-# #         - . :/usr/src/app
-# #       ports:
-# #         - 5000:5000
-
-# # To execute this docker-compose yml file use `docker-compose -f <file_name> up`
-# # Add the `-d` flag at the end for detached execution
-# services:
-#   selenium-hub:
-#     image: selenium/hub:3.14.0-arsenic
-#     container_name: selenium-hub
-#     ports:
-#       - "4444:4444" 
-  
-#   chrome:
-#     image: selenium/node-chrome-debug:3.14.0-arsenic
-#     volumes:
-#       - /dev/shm:/dev/shm    
-#     depends_on:
-#       - selenium-hub
-#     environment:
-#       - HUB_HOST=selenium-hub
-#       - HUB_PORT=4444
-  
-#   firefox:
-#     image: selenium/node-firefox-debug:3.14.0-arsenic
-#     volumes:
-#       - /dev/shm:/dev/shm    
-#     depends_on:
-#       - selenium-hub
-#     environment:
-#       - HUB_HOST=selenium-hub
-#       - HUB_PORT=4444
-
-#   golem-test:
-#     image: downey/golem:1.0
-#     ports: 
-#       - "5000:5000"
-#     depends_on:
-#       - selenium-hub
-#       - firefox
-#       - chrome         
-
-
 version: "3"
 services:
     zalenium:
@@ -85,7 +34,7 @@ services:
 
     golem-test:
       image: downey/golem:1.0
-      ports: 
+      ports:
         - "5000:5000"
       depends_on:
         - zalenium

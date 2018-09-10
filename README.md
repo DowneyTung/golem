@@ -1,83 +1,26 @@
-Golem - Test Automation Framework 
+H5Golem - Test Automation Framework
 ==================================================
 [![Build Status](https://travis-ci.org/lucianopuccio/golem.svg?branch=master)](https://travis-ci.org/lucianopuccio/golem)
 [![Documentation Status](https://readthedocs.org/projects/golem-framework/badge/?version=latest)](https://golem-framework.readthedocs.io/en/latest/?badge=latest)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Join the chat at https://gitter.im/golem-framework/golem](https://badges.gitter.im/golem-framework/golem.svg)](https://gitter.im/golem-framework/golem?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-
-Instructions specifically for Running the Tentrr Test:
---------------------------------------
-This framework works with python 3.4+ above. Make sure you have an initialized python3 env before you start cloning the project. 
-
-I recommend to use pipenv to intialize a virtual python3 env
-
-If you’re on MacOS, you can install Pipenv easily with Homebrew:
-
-```
-$ brew install pipenv
-```
-
-To initialize and spawn a python 3 virtual environment 
-
-```
-pipenv shell --three
-```
-
-git clone the project and check out Tentrr branch
-
-```
-git clone git@github.com:DowneyTung/golem.git 
-cd golem
-git checkout Tentrr
-```
-
-install the dependencies and setup
-
-```
-python setup.py install
-```
-
-cd into the tentrr directory and run the full_regression suite in parallel from command line
-```
-cd tentrr
-golem run Tentrr full_regression
-```
-
-if you want to run each test separately
-
-```
-golem run Tentrr map_pin_test
-golem run Tentrr navigate_to_campsite_test
-golem run Tentrr search_test
-```
-
-if you want to spwan up the UI interface for this test framework, you can also 
-```
-cd tentrr (if you are not in the tentrr directory)
-golem gui
-```
-
-
-
-**(Technically you can ignore the content below because it is not related to the Tentrr test, but do keep reading if you are interested in this test automation framework)**
-
-
-Intro 
+Intro
 --------------------------------------
 
 >Automate end to end tests in minutes, not hours.
 
 
-Golem is a complete test automation tool and framework for end-to-end testing. It creates powerful, robust and maintainable test suites, it's easy to learn even without a lot of programming knowledge. It is based on Selenium Webdriver and it can be extended using Python.
+H5Golem is a complete test automation tool and framework for end-to-end testing, forked from [Github](https://github.com/lucianopuccio/golem), configured by Downey Tung in house for High5games. It creates powerful, robust and maintainable test suites, it's easy to learn even without a lot of programming knowledge. It is based on Selenium Webdriver, openCV, Tesseract and it can be extended using Python.
 
 **It can:**
 * Use the Page Object pattern
-* Write tests with multi data sets (data-driven)
+* Use Image recognition/template matching to automate application without DOM ([OpenCV](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html#template-matching), [Tesseract](https://github.com/madmaze/pytesseract))
 * Run tests in parallel.
+* Write tests with multi data sets (data-driven)
 * Test APIs
-* Run tests remotely (Selenium Grid or a cloud testing provider)
-* It can be executed from Jenkins or any other CI tool 
+* Run tests remotely ([Zalenium](https://opensource.zalando.com/zalenium/) docker container or a cloud testing provider)
+* It can be executed from Jenkins or any other CI tool
 
 
 **It has:**
@@ -86,110 +29,107 @@ Golem is a complete test automation tool and framework for end-to-end testing. I
 * An interactive console
 
 
-**Please note**: Golem is still in beta. Read the changelog before upgrading.
-
-***
-
-## Contents
-
-* [Screen Captures](#screen-captures)
-* [Pre-requisites](#pre-requisites)
-* [Installation](#installation)
-* [Quick Start](#quick-start)
-* [Documentation](#documentation)
-* [Example Projects](#documentation)
-* [Roadmap](#roadmap)
-* [License](#license)
-
-
-Screen Captures
---------------------------------------
-
-**Test Builder**
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/test-case.png" />
-</p>
-
-
-**Test as Pure Python Code**
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/example-test-code.png" />
-</p>
-
-
-**Report Dashboard**
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/report-dashboard.png" />
-</p>
-
-
-**Execution Report**
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/execution-report.png" />
-</p>
-
-
-**Test Execution Detail**
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/test-execution-detail.png" />
-</p>
-
-
 Pre-requisites
 --------------------------------------
 
 Basic knowledge of Selenium Webdriver is required. Check out [this docs](https://golem-framework.readthedocs.io/en/latest/installation.html) first.
 
 
-Installation
+Installation Instructions
 --------------------------------------
 
-Golem works with Python 3.4+
+>*Specifically for Running the H5G Test in Unix/Linux (Windows is coming soon...)*
+
+
+This framework works with python 3.4+ above.
+
+The easiest way to build the project and run the the test is through [Docker](https://store.docker.com/search?offering=community&type=edition)
+
+git clone the project and check out H5G branch
 
 ```
-pip install golem-framework
+git clone git@github.com:DowneyTung/golem.git
+cd golem
 ```
 
-Read the full installation guide here: [https://golem-framework.readthedocs.io/en/latest/installation.html](https://golem-framework.readthedocs.io/en/latest/installation.html)
-
-Quick Start
---------------------------------------
-
-**Create a test directory anywhere in your machine**
+Since I forked the project, you ought to check out my branch for h5g project
 
 ```
-golem-admin createdirectory <test_directory>
+git checkout H5G
 ```
 
-**Download the latest webdriver executables**
+if you decide to build the project and run the test using Docker
+
+  - First, build the golem base-image
 
 ```
-cd <test_directory>
-webdriver-manager update
-``` 
-
-Webdriver executables can be downloaded manually. Place them in a known location (e.g. in <test_directory>/drivers) and make sure the settings.json has the correct path to the executables (e.g. "chromedriver_path": "./drivers/chromedriver\*"). Note: use '\*' wildcard to match latest version automatically.
-
-The latests versions of the webdrivers can be found here:
-* Chrome: (https://sites.google.com/a/chromium.org/chromedriver/)
-* Firefox: (https://github.com/mozilla/geckodriver/releases)
-* IE: (http://selenium-release.storage.googleapis.com/index.html)
-
-For more information check [this page](https://golem-framework.readthedocs.io/en/latest/web-drivers.html) of the documentation.
-
-**Start the Web Module**
-
-```
-golem gui
+docker build -t downey/golem:1.0 .
 ```
 
+  - Second, start the services by running
+```
+docker-compose up
+```
 
-The Web Module can be accessed at http://localhost:5000/
+  - Third, open your browser, preferably Chrome and navigate to
+```
+http://localhost:5000/
+```
 
-By default, the following user is available: username: *admin* / password: *admin*
+  - Fourth, login with username as *admin* and password as *admin*
+
+  - Fifth, navigate to Suites, click on the rmg_smoke_test, click on Run Suite
+
+  - Sixth, Open a new tab on the browser and navigate to the url below to watch the test running live
+```
+http://localhost:4444/grid/admin/live
+```
+  - Seventh, after the test finish running, navigate to the url below to view the test report
+```
+http://localhost:5000/report/project/RMG/
+```
+
+If you want to build the project local without using docker
+
+I recommend to use pipenv to intialize a virtual python3 env
+
+On MacOS, you can install Pipenv easily with [Homebrew](https://brew.sh/):
+
+```
+brew install pipenv
+```
+
+To initialize and spawn a python 3 virtual environment
+
+```
+pipenv shell --three
+```
+
+git clone the project and check out H5G branch
+
+```
+git clone git@github.com:DowneyTung/golem.git
+cd golem
+git checkout H5G
+```
+
+install the dependencies and setup
+
+```
+pip install requirements -r
+```
+```
+python setup.py install
+```
 
 
-**Run a Test From Console**
+cd into the H5G directory and run the full smoke suite in parallel from command line
+```
+cd H5G
+golem run RMG rmg_smoke_test
+```
+
+**Run Individual Test From Console**
 
 ```
 golem run <project> <test>
@@ -201,26 +141,28 @@ Flags:
 * -t | --threads: run in parallel, default 1 (not parallel)
 * -e | --environments: a list of environments, default is none
 
+Examples for running each individual test separately
+
+```
+golem run RMG load_app_change_bet_test -b chrome -e stage
+golem run RMG load_app_click_on_spin_test -b chrome -e stage
+golem run RMG load_app_dropdown_tab_test -b chrome -e stage
+```
+
+**Start the Web Module**
+```
+cd H5G (if you are not in the H5G directory)
+golem gui
+```
+
+The Web Module can be accessed at http://localhost:5000/
+
+By default, the following user is available: username: *admin* / password: *admin*
 
 Documentation
 --------------------------------------
 
-Read the full documentation here: [https://golem-framework.readthedocs.io/](https://golem-framework.readthedocs.io/)
-
-
-Example Projects
---------------------------------------
-
-Here is a repo with example working projects usign Golem: [https://github.com/lucianopuccio/golem-demo](https://github.com/lucianopuccio/golem-demo)
-
-
-Roadmap
---------------------------------------
-
-- Integrate with Appium for mobile testing
-- Improve API test Golem actions
-- Video recording
-
+Read the full documentation of this framework here: [https://golem-framework.readthedocs.io/](https://golem-framework.readthedocs.io/)
 
 License
 --------------------------------------
