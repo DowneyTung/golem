@@ -16,6 +16,7 @@ def test(data):
     wait_while_text_element_present('VA ULT®')
     wait(2)
     wait_while_text_element_present('Loading up the reels!')
+    wait(2)
     get_current_window_rect()
     get_element_location(partner_game_lobby.base_element)
     assert_true(verify_element_exist_by_coordinates('rmg_spin_btn'))

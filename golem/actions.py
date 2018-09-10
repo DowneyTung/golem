@@ -288,6 +288,12 @@ def verify_element_exist_by_coordinates(base_image, default_image_size=1262400, 
     (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
     execution.logger.debug('The end coordinate for the element is (endX: {}, endY: {})'.format(endX, endY))
 
+    matched_image = cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
+    matched_img_path = os.path.join(execution.report_directory, 'matched_{}.png'.format(img_id))
+    save_matched_image = cv2.imwrite(matched_img_path, matched_image)
+    # cv2.imshow("Image", image)
+    execution.logger.info('Save the matched result as matched_{}.png'.format(img_id))
+
     if (image.size > default_image_size):
         ratio = math.sqrt(image.size / default_image_size)
         x_coordinate = (startX + endX) / (2 * ratio)
@@ -312,7 +318,9 @@ def extract_text_from_image(image_path):
     """
     _run_wait_hook()
     image = cv2.imread(image_path)
-    image_text = pytesseract.image_to_string(image)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    image_text = pytesseract.image_to_string(gray)
     execution.logger.info('The text reads from the {0} is \' {1} \''.format(image_path, image_text))
     return image_text
 
@@ -572,7 +580,7 @@ def click_on_target_area_with_coordinates(area_name, base_element, x_coordinate,
     webelement = driver.find(base_element)
     e_location = webelement.location
     print("The element location is {}".format(e_location))
-    step_message = 'Mouse hover to base_element \'{0}\' and then moveoffset by (x: {1}, y: {2},) and then click on the specified area with name as {3} '.format(webelement.name, x_coordinate, y_coordinate, area_name)
+    step_message = 'Mouse hover to base_element \'{0}\' and then move to coordinates (x: {1}, y: {2},) and then click on the specified area with name as {3} '.format(webelement.name, x_coordinate, y_coordinate, area_name)
     execution.logger.info(step_message)
     move_x = x_coordinate - e_location['x']
     move_y = y_coordinate - e_location['y']
@@ -585,10 +593,10 @@ def get_current_window_rect():
     """Gets the x, y coordinates of the window as well as height and width of the current window.
     Parameters:
     """
-    step_message = 'get_current_windows x y coordinates, height and width'
     driver = browser.get_browser()
     a = driver.get_window_rect()
-    execution.logger.info(step_message + str(a))
+    step_message = 'Get current window\'s x y coordinates, height and width as {}'.format(a)
+    execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
 
