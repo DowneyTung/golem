@@ -89,9 +89,6 @@ http://localhost:4444/grid/admin/live
 http://localhost:5000/report/project/RMG/
 ```
 *Run Test Suite in Docker*
-<p align="center">
-    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/Golem_test_parallel" />
-</p>
 
 ![grab_test_running_gif](https://github.com/DowneyTung/golem/blob/H5G/images/Golem_test_parallel.gif)
 

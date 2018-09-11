@@ -1,6 +1,7 @@
 hoot_loot_game_icon = ('xpath', '//div[@id="game-1042"]', 'hoot_loot_game_icon')
 triple_monkey_game_icon = ('xpath', '//div[@id="game-2550"]', 'triple_monkey_game_icon')
 gypsy_game_icon = ('xpath', '//div[@id="game-1056"]', 'gypsy_game_icon')
+thundering_buffalo_icon = ('xpath', '//div[@id="game-1052"]', 'thundering_buffalo_icon')
 base_element = ('xpath', '//div[@id="GameName"]', 'base_Webelement')
 load_anim = ('xpath', '//img[@id="loadanim"]', 'load_anim_element')
 game_block = ('xpath', '//div[@id="game"]', 'game_block_element')
