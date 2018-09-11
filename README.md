@@ -1,4 +1,4 @@
-H5Golem - Test Automation Framework
+H5-Golem - Test Automation Framework
 ==================================================
 [![Build Status](https://travis-ci.org/lucianopuccio/golem.svg?branch=master)](https://travis-ci.org/lucianopuccio/golem)
 [![Documentation Status](https://readthedocs.org/projects/golem-framework/badge/?version=latest)](https://golem-framework.readthedocs.io/en/latest/?badge=latest)
@@ -11,7 +11,7 @@ Intro
 >Automate end to end tests in minutes, not hours.
 
 
-H5Golem is a complete test automation tool and framework for end-to-end testing, forked from [Github](https://github.com/lucianopuccio/golem), configured by Downey Tung in house for High5games. It creates powerful, robust and maintainable test suites, it's easy to learn even without a lot of programming knowledge. It is based on Selenium Webdriver, openCV, Tesseract and it can be extended using Python.
+H5-Golem is a complete test automation tool and framework for end-to-end testing, forked from [Github](https://github.com/lucianopuccio/golem), configured by Downey Tung in house for High5games. It creates powerful, robust and maintainable test suites, it's easy to learn even without a lot of programming knowledge. It is based on Selenium Webdriver, openCV, Tesseract and it can be extended using Python.
 
 **It can:**
 * Use the Page Object pattern
@@ -88,8 +88,13 @@ http://localhost:4444/grid/admin/live
 ```
 http://localhost:5000/report/project/RMG/
 ```
+*Run Test Suite in Docker*
+<p align="center">
+    <img width="700" style="border: 1px solid #d3d3d3; padding: 5px" src="./images/Golem_test_parallel" />
+</p>
 
-If you want to build the project local without using docker
+
+**If you want to build the project local without using docker**
 
 I recommend to use pipenv to intialize a virtual python3 env
 
@@ -129,7 +134,7 @@ cd H5G
 golem run RMG rmg_smoke_test
 ```
 
-**Run Individual Test From Console**
+*Run Individual Test From Console*
 
 ```
 golem run <project> <test>
