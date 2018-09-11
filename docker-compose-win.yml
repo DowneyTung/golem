@@ -6,9 +6,8 @@ services:
         hostname: zalenium
         tty: true
         volumes:
-            - ' /c/Users/dtung/temp/videos:/home/seluser/videos'
+            - '/c/Users/dtung/temp/videos:/home/seluser/videos'
             - '/var/run/docker.sock:/var/run/docker.sock'
-            - '/usr/local/bin/docker:/usr/local/bin/docker'
         ports:
             - 4444:4444
         command: >
