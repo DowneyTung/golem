@@ -12,9 +12,9 @@ services:
         ports:
             - 4444:4444
         command: >
-          start --chromeContainers 2
-                --firefoxContainers 2
-                --maxDockerSeleniumContainers 8
+          start --desiredContainers 4
+                --maxDockerSeleniumContainers 4
+                --maxTestSessions 200
                 --screenWidth 800 --screenHeight 600
                 --timeZone "America/New_York"
                 --videoRecordingEnabled false

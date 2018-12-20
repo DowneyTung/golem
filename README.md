@@ -38,14 +38,14 @@ Basic knowledge of Selenium Webdriver is required. Check out [this docs](https:/
 Installation Instructions
 --------------------------------------
 
->*Specifically for Running the H5G Test in Unix/Linux (Windows is coming soon...)*
+>*Specifically for Running the H5G Test in Unix/Linux*
 
 
 This framework works with python 3.4+ above.
 
 The easiest way to build the project and run the the test is through [Docker](https://store.docker.com/search?offering=community&type=edition)
 
-git clone the project and check out H5G branch
+git clone the project and check out `H5G` branch
 
 ```
 git clone git@github.com:DowneyTung/golem.git
@@ -64,6 +64,10 @@ if you decide to build the project and run the test using Docker
 
 ```
 docker build -t downey/golem:1.0 .
+```
+   pull the selenium images from dockerHub
+```
+docker pull elgalu/selenium
 ```
 
   - Second, start the services by running
@@ -108,7 +112,7 @@ To initialize and spawn a python 3 virtual environment
 pipenv shell --three
 ```
 
-git clone the project and check out H5G branch
+git clone the project and check out `H5G` branch
 
 ```
 git clone git@github.com:DowneyTung/golem.git
@@ -152,6 +156,14 @@ golem run RMG load_app_click_on_spin_test -b chrome -e stage
 golem run RMG load_app_dropdown_tab_test -b chrome -e stage
 ```
 
+Examples for running each individual test separately through `Zalenium` locally
+
+```
+golem run RMG load_app_change_bet_test -b chrome-remote -e stage
+golem run RMG load_app_click_on_spin_test -b chrome-remote -e stage
+golem run RMG load_app_dropdown_tab_test -b chrome-remote -e stage
+```
+
 **Start the Web Module**
 ```
 cd H5G (if you are not in the H5G directory)
@@ -161,6 +173,65 @@ golem gui
 The Web Module can be accessed at http://localhost:5000/
 
 By default, the following user is available: username: *admin* / password: *admin*
+
+>*Specifically for Running the H5G Test in windows 10 above *
+
+On windows machine, make sure you have [docker](https://store.docker.com/editions/community/docker-ce-desktop-windows) and [gitbash](https://git-scm.com/download/win) installed and configured properly to run the test.
+
+The easiest way to start experiencing the automation framework is through building the test automation framework using docker.
+
+git clone the porject and checkout development branch
+```
+git clone git@github.com:DowneyTung/golem.git
+cd golem
+git checkout H5G
+```
+
+Currently I only did test run of the test suites via docker
+
+  - First, build the golem base-image
+
+```
+docker build -t downey/golem:1.0 .
+```
+   pull the selenium images from dockerHub
+```
+docker pull elgalu/selenium
+```
+
+  - Second, start the services by running
+    In order to spin up the containers on win 10 above, you need to run the docker-compose-win.yml file
+
+    Before we run the docker-compose-win.yml file:
+     - make new directory in your c drive, `/c/Users/$your_user_name/temp/videos`
+
+     - edit the docker-compose-win.yml file and replace `dtung` in line 9 to your $your_user_name
+
+     - add `$Env:COMPOSE_CONVERT_WINDOWS_PATHS=1` to Powershell due to this [issue](https://stackoverflow.com/questions/51466393/cannot-set-traefik-via-labels-inside-docker-compose-yml)
+
+    Run the docker-compose-win.yml file to spawn the docker containers:
+
+```
+docker-compose -f docker-compose-win.yml up
+```
+
+  - Third, open your browser, preferably Chrome and navigate to
+```
+http://localhost:5000/
+```
+
+  - Fourth, login with username as *admin* and password as *admin*
+
+  - Fifth, navigate to Suites, click on the rmg_smoke_test, click on Run Suite
+
+  - Sixth, Open a new tab on the browser and navigate to the url below to watch the test running live
+```
+http://localhost:4444/grid/admin/live
+```
+  - Seventh, after the test finish running, navigate to the url below to view the test report
+```
+http://localhost:5000/report/project/RMG/
+```
 
 Documentation
 --------------------------------------
