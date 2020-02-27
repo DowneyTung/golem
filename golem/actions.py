@@ -6,6 +6,7 @@ import sys
 import importlib
 import string
 import random as rand
+from random import randint
 
 import selenium
 from selenium.webdriver.common.keys import Keys
@@ -624,7 +625,6 @@ def navigate(url):
     driver = browser.get_browser()
     driver.get(url)
     # driver.maximize_window()
-    driver.set_window_size(800, 600)
     execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
@@ -682,6 +682,16 @@ def random(value):
     return random_string
 
 
+def random_with_N_digits(n):
+    """Generate N digits of random numbers.
+    Parameters:
+    n: the number of digits you want to generate
+    """
+    range_start = 10**(n-1)
+    range_end = (10**n) -1
+    return randint(range_start, range_end)
+
+    
 def refresh_page():
     """Refresh the page."""
     _run_wait_hook()
@@ -692,6 +702,25 @@ def refresh_page():
     # browser.get(browser.current_url);
     execution.logger.info(step_message)
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
+
+
+def reload_games(element, attribute_name, expected_attribute_value, times=3):
+    """Refresh the page and reload the games"""
+    _run_wait_hook()
+    step_message = 'reload games'
+    execution.logger.info(step_message)    
+    if execution.data['timed_out'] is True:
+        execution.logger.info("The game is not loading after timed out")
+        for i in range(times):
+            execution.logger.info("refresh the game for {} time".format(str(i+1)))
+            browser.get_browser().refresh()
+            wait(20)
+            wait_for_element_attribute_visible(element, attribute_name, expected_attribute_value)    
+            if execution.data['timed_out'] is False:
+                break
+        assert_false(execution.data['timed_out'] is True)        
+    else:
+        execution.logger.info("The game seems loaded fine...skipping reload games")
 
 
 def select_by_index(element, index):
@@ -1189,7 +1218,7 @@ def wait_for_element_visible(element, timeout=20):
             timed_out = True
 
 
-def wait_for_element_attribute_visible(element, attribute_name, expected_attribute_value, timeout=30):
+def wait_for_element_attribute_visible(element, attribute_name, expected_attribute_value, timeout=360):
     """Wait for element attribute to be visible.
     After timeout this won't throw an exception.
     Parameters:
@@ -1208,13 +1237,14 @@ def wait_for_element_attribute_visible(element, attribute_name, expected_attribu
     timed_out = False
     webelement = browser.get_browser().find(element)
     attribute_value = None
-    while not attribute_value == expected_attribute_value or not timed_out:
+    while not attribute_value == expected_attribute_value and not timed_out:
         execution.logger.debug('Element\'s attribute is not visible, waiting..')
         attribute_value = webelement.get_attribute(attribute_name)
         execution.logger.debug('The attribute value is {}'.format(attribute_value))
         time.sleep(0.5)
         if time.time() - start_time > timeout:
             timed_out = True
+    store('timed_out', timed_out) 
 
 
 def http_get(url, headers={}, params={}, verify_ssl_cert=True):

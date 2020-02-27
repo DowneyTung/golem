@@ -1,5 +1,5 @@
 {
     "stage": {
-        "rmg_url": "https://partnerdemo.high5games.com/"
+        "partial_game_url": "https://partnerdemo.high5games.com/launch.html?debug=true&slamEnabled=on&slamWaitTime=0&playMode=R&currencyCode=USD&languageCode=en&siteId=FlashLobby&engine=default&quality=HIGH&"
     }
 }

@@ -40,7 +40,6 @@
 
 // URLRemote URL : the URL to use when connecting to a remote webdriver
 // for example, using selenium grid
-// "remote_url": "http://localhost:4444/wd/hub",
 "remote_url":"http://zalenium:4444/wd/hub",
 
 // Log level to console. Options are: DEBUG, INFO, WARNING, ERROR, CRITICAL.

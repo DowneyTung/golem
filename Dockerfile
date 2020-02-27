@@ -1,23 +1,17 @@
-FROM alpine:latest
+FROM alpine:3.10.1
 #FROM python:3.7-alpine
 FROM python:3-alpine3.6
 MAINTAINER Downey "downeytqualitya@gmail.com"
+ENV GRPC_VERBOSITY="DEBUG"
 
-RUN apk add --no-cache tesseract-ocr
-
-RUN set -x && \
-  # enable to use wget command for donwloading from https site
-  apk add --update --no-cache --virtual wget-dependencies \
-    ca-certificates \
-    openssl && \
-  # tesseract is in testing repo
-  echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-  apk add --update --no-cache tesseract-ocr && \
-  # download traineddata
-  # english
-  wget -q -P /usr/share/tessdata/ "https://raw.githubusercontent.com/tesseract-ocr/tessdata/3.04.00/eng.traineddata" && \
-  # delete wget-dependencies
-  apk del wget-dependencies
+RUN apk update \
+    && apk add curl gcc musl-dev libffi-dev make \
+    && apk del libressl-dev \
+    && apk add openssl-dev \
+    && apk del openssl-dev \
+    && apk add libressl-dev \
+    && apk add openssh-client \
+    && apk add openssh
 
 RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
 @edge http://nl.alpinelinux.org/alpine/edge/main\n\
@@ -102,21 +96,15 @@ RUN mkdir -p /opt/opencv-${OPENCV_VERSION}/build && \
   rm -rf /opt/opencv-${OPENCV_VERSION}
 
 
-RUN pip install pytesseract
-#RUN apk --no-cache add musl-dev g++
-#RUN pip install numpy
-RUN pip install --no-cache-dir Cython==0.28.2
-RUN pip install setuptools
-#RUN pip install scikit-image
-
 WORKDIR /usr/src/app
 
 #Add source file
 COPY . /usr/src/app
+RUN pip install pytesseract
+RUN pip install tesseract
 
 RUN python setup.py install \
     &&echo $PWD
 WORKDIR H5G
 RUN echo $PWD
 CMD golem gui
-

@@ -13,7 +13,7 @@ services:
         command: >
           start --desiredContainers 4
                 --maxDockerSeleniumContainers 4
-                --maxTestSessions 200
+                --maxTestSessions 20
                 --screenWidth 1200
                 --screenHeight 900
                 --timeZone "America/New_York"
@@ -31,6 +31,13 @@ services:
           - BROWSER_STACK_KEY
           - TESTINGBOT_KEY
           - TESTINGBOT_SECRET
+        depends_on:
+          - selenium
+    
+    selenium:
+        image: elgalu/selenium:latest
+        command: echo 0
+        restart: "no"    
 
     golem-test:
       image: downey/golem:1.0
