@@ -19,7 +19,7 @@ H5-Golem is a complete test automation tool and framework for end-to-end testing
 * Write tests with multi data sets (data-driven)
 * Test APIs
 * DB validation
-* Run tests remotely ([Zalenium](https://opens0ource.zalando.com/zalenium/) docker container or a cloud0 testing provider)
+* Run tests remotely ([Zalenium](https://opens0ource.zalando.com/zalenium/) docker container or a cloud testing provider)
 * It can be executed from Jenkins or any other CI tool
 
 
@@ -82,7 +82,7 @@ http://localhost:5000/
 
   - Fourth, login with username as *admin* and password as *admin*
 
-  - Fifth, navigate to Suites, click on the rmg_smoke_test, click on Run Suite
+  - Fifth, navigate to Suites, click on the *spin_all_games*, click on Run Suite
 
   - Sixth, Open a new tab on the browser and navigate to the url below to watch the test running live
 ```
@@ -163,8 +163,8 @@ Args:
 Examples for running each individual test separately
 
 ```
-golem run RMG click_on_spin_btn_test -b chrome -e HTML5
-golem run RMG click_on_spin_btn_test -b chrome-remote -e HTML5
+golem run RMG click_on_spin_btn_test -b chrome -e stage
+golem run RMG click_on_spin_btn_test -b chrome-remote -e stage
 ```
 
 **Start the Web Module**
@@ -182,11 +182,11 @@ By default, the following user is available: username: *admin* / password: *admi
 
 On windows machine, make sure you have [docker](https://store.docker.com/editions/community/docker-ce-desktop-windows) and [gitbash](https://git-scm.com/download/win) installed and configured properly to run the test.
 
-The easiest way to start experiencing the automation framework is through building the test automation framework using docker.
+The easiest way to start experiencing the automation framework is building the test automation framework using docker.
 
 **Run a Test From Console**
 
-git clone the porject and checkout development branch
+git clone the porject and checkout H5G branch
 ```
 git clone git@github.com:DowneyTung/golem.git
 cd golem
@@ -228,7 +228,7 @@ http://localhost:5000/
 
   - Fourth, login with username as *admin* and password as *admin*
 
-  - Fifth, navigate to Suites, click on the rmg_smoke_test, click on Run Suite
+  - Fifth, navigate to Suites, click on the *spin_all_games*, click on Run Suite
 
   - Sixth, Open a new tab on the browser and navigate to the url below to watch the test running live
 ```
