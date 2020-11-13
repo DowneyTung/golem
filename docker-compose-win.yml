@@ -41,6 +41,7 @@ services:
 
     golem-test:
       image: downey/golem:1.0
+      container_name: golem-test
       ports:
         - "5000:5000"
       depends_on:

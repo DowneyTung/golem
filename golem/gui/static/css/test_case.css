@@ -1,14 +1,17 @@
 
-html {
-    overflow-y: scroll;
+body {
+    overflow: scroll
 }
+
+body.modal-open {
+    overflow: hidden
+}
+
 
 .input-group {
     margin-bottom: 5px;
     width: 100%;
 }
-
-
 
 #stepsContainerContainer {
 	padding-bottom: 10px;
@@ -48,6 +51,8 @@ html {
 
 #steps {
 	margin-bottom: 5px;
+	float: left;
+	width: 100%
 }
 
 #pageObjectsContainerContainer {
@@ -59,7 +64,10 @@ html {
 }
 
 .step {
+    float: left;
+    width: 100%;
 	clear: both;
+	margin-bottom: 5px;
 }
 
 .add-new-icon {
@@ -74,16 +82,42 @@ html {
 }
 
 .params {
+	float: left;
 	padding-left: 0px;
 	padding-right: 0px;
-	width: 60%;
+	width: calc(100% - 307px);
+}
+
+.parameter-container {
+    width: 264px;
+    float: left;
+}
+
+.step-first-input, .parameter-input {
+    padding: 6px
 }
 
 .step-first-input-container {
-	width: 30%;
+	float: left;
+	width: 264px;
 }
 
-#pageObjects input.selected-page {
+@media (min-width: 1400px) {
+
+    .step-first-input-container {
+        width: 296px;
+    }
+
+    .parameter-container {
+        width: 296px;
+    }
+
+    .params {
+        width: calc(100% - 335px);
+    }
+}
+
+#pageObjects>.page>.page-name{
 	cursor: default;
 }
 
@@ -91,7 +125,6 @@ html {
 	width: auto;
 	margin: 10px;
 	height: 90%;
-
 }
 
 #pageModal.modal .modal-dialog .modal-content{
@@ -120,6 +153,46 @@ html {
 }
 
 .not-exist {
-	/*border: solid 2px #d9534f;*/
 	box-shadow: inset 0px 0px 4px 1px #d9534f;
+}
+
+.action-description {
+    display: none;
+    position: absolute;
+    left: 100%;
+    margin-top: -24px;
+    margin-left: 3px;
+    border-radius: 3px;
+    width: 300px;
+    background: white;
+    min-height: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.autocomplete-selected .action-description {
+    display: block
+}
+
+.code-block {
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: calc(100% - 50px);
+    border-radius: 3px;
+}
+
+.code-block .CodeMirror {
+    height: auto;
+    border-radius: 3px;
+}
+
+.CodeMirror-lines {
+  padding: 6px 0; /* Vertical padding around content */
+}
+.CodeMirror pre {
+  padding: 0 6px; /* Horizontal padding of content */
+}
+
+.step[step-type='code-block'] {
+	margin-bottom: 1px;
 }

@@ -1,8 +1,7 @@
-H5-Golem - Test Automation Framework
-==================================================
-[![Build Status](https://travis-ci.org/lucianopuccio/golem.svg?branch=master)](https://travis-ci.org/lucianopuccio/golem)
+#H5-Golem - Test Automation Framework
+
+[![Build Status](https://travis-ci.com/golemhq/golem.svg?branch=master)](https://travis-ci.com/golemhq/golem)
 [![Documentation Status](https://readthedocs.org/projects/golem-framework/badge/?version=latest)](https://golem-framework.readthedocs.io/en/latest/?badge=latest)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Join the chat at https://gitter.im/golem-framework/golem](https://badges.gitter.im/golem-framework/golem.svg)](https://gitter.im/golem-framework/golem?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Intro
@@ -19,7 +18,8 @@ H5-Golem is a complete test automation tool and framework for end-to-end testing
 * Run tests in parallel.
 * Write tests with multi data sets (data-driven)
 * Test APIs
-* Run tests remotely ([Zalenium](https://opensource.zalando.com/zalenium/) docker container or a cloud testing provider)
+* DB validation
+* Run tests remotely ([Zalenium](https://opens0ource.zalando.com/zalenium/) docker container or a cloud0 testing provider)
 * It can be executed from Jenkins or any other CI tool
 
 
@@ -98,24 +98,33 @@ http://localhost:5000/report/project/RMG/
 
 **If you want to build the project local without using docker**
 
-I recommend to use pipenv to intialize a virtual python3 env
+I recommend to intialize a virtual python3 env
 
-On MacOS, you can install Pipenv easily with [Homebrew](https://brew.sh/):
-
-```
-brew install pipenv
-```
-
-To initialize and spawn a python 3 virtual environment
+On unix/linux env, you can start a [virtual python3 env](https://docs.python.org/3/library/venv.html) like this:
 
 ```
-pipenv shell --three
+python3 -m venv /path/to/new/virtual/environment
 ```
 
-git clone the project and check out `H5G` branch
+```
+cd /path/to/new/virtual/environment
+```
+
+activate the virtual env
+```
+source bin/activate
+```
+
+Install the OCR(Optical character recognition) package `Tesseract`
 
 ```
-git clone git@github.com:DowneyTung/golem.git
+brew install tesseract
+```
+
+git clone the project and check out development branch
+
+```
+git clone http://gitlab.h5c.local/dtung/golem
 cd golem
 git checkout H5G
 ```
@@ -123,45 +132,39 @@ git checkout H5G
 install the dependencies and setup
 
 ```
-pip install requirements -r
+pip install -r requirements.txt
 ```
 ```
 python setup.py install
 ```
 
+You have two options to run the test locally, one is through command line, and the other is through web module
 
 cd into the H5G directory and run the full smoke suite in parallel from command line
 ```
 cd H5G
-golem run RMG rmg_smoke_test
+golem run RMG $suite_name
 ```
 
 *Run Individual Test From Console*
 
 ```
 golem run <project> <test>
+golem run <project> <suite>
 ```
 
-Flags:
+Args:
 
 * -b | --browsers: a list of browsers, by default use defined in settings.json or Chrome
-* -t | --threads: run in parallel, default 1 (not parallel)
-* -e | --environments: a list of environments, default is none
+* -p | --processes: run in parallel, default 1 (not parallel)
+* -e | --environments: a list of environments, the default is none
+* -t | --tags: filter tests by tags
 
 Examples for running each individual test separately
 
 ```
-golem run RMG load_app_change_bet_test -b chrome -e stage
-golem run RMG load_app_click_on_spin_test -b chrome -e stage
-golem run RMG load_app_dropdown_tab_test -b chrome -e stage
-```
-
-Examples for running each individual test separately through `Zalenium` locally
-
-```
-golem run RMG load_app_change_bet_test -b chrome-remote -e stage
-golem run RMG load_app_click_on_spin_test -b chrome-remote -e stage
-golem run RMG load_app_dropdown_tab_test -b chrome-remote -e stage
+golem run RMG click_on_spin_btn_test -b chrome -e HTML5
+golem run RMG click_on_spin_btn_test -b chrome-remote -e HTML5
 ```
 
 **Start the Web Module**
@@ -174,11 +177,14 @@ The Web Module can be accessed at http://localhost:5000/
 
 By default, the following user is available: username: *admin* / password: *admin*
 
+
 >*Specifically for Running the H5G Test in windows 10 above *
 
 On windows machine, make sure you have [docker](https://store.docker.com/editions/community/docker-ce-desktop-windows) and [gitbash](https://git-scm.com/download/win) installed and configured properly to run the test.
 
 The easiest way to start experiencing the automation framework is through building the test automation framework using docker.
+
+**Run a Test From Console**
 
 git clone the porject and checkout development branch
 ```
@@ -233,12 +239,23 @@ http://localhost:4444/grid/admin/live
 http://localhost:5000/report/project/RMG/
 ```
 
-Documentation
---------------------------------------
 
-Read the full documentation of this framework here: [https://golem-framework.readthedocs.io/](https://golem-framework.readthedocs.io/)
+## Documentation
 
-License
---------------------------------------
+[https://golem-framework.readthedocs.io/](https://golem-framework.readthedocs.io/)
+
+## Questions
+
+If you have any question please use the [Gitter channel](https://gitter.im/golem-framework/golem).
+
+## Contributing
+
+If you found a bug or want to contribute code please read the [contributing guide](https://github.com/golemhq/golem/blob/master/CONTRIBUTING.md).
+
+## License
 
 [MIT](https://tldrlegal.com/license/mit-license)
+
+## Credits
+
+Logo based on ["to believe"](https://www.toicon.com/icons/feather_believe) by Shannon E Thomas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

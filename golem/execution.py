@@ -1,29 +1,22 @@
-"""The Execution module contains data specific to a
-single test execution
-"""
-import sys
+""" Stored values specific to a single test execution. """
 
-
-class Execution:
-
-    def __init__(self):
-        self.browser = None
-        # self.browser_name = None
-        self.browser_definition = None
-        self.browsers = {}
-        self.steps = []
-        self.data = None
-        self.description = None
-        self.settings = None
-        self.project = None
-        self.workspace = None
-        self.report_directory = None
-        self.logger = None
-
-    def reset(self):
-        self.__init__()
-
-
-# An instance of Execution is added to sys.modules
-# to simplify the public API.
-sys.modules['golem.execution'] = Execution()
+browser = None
+browser_definition = None
+browsers = {}
+steps = []
+data = None
+secrets = None
+description = None
+errors = []
+settings = None
+test_name = None
+test_dirname = None
+test_path = None
+project_name = None
+project_path = None
+testdir = None
+report_directory = None
+logger = None
+timers = {}
+tags = []
+environment = None

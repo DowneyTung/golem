@@ -1,6 +1,4 @@
 """Functions to interact with a webdriver browser object."""
-# import time
-# import types
 import traceback
 from contextlib import contextmanager
 
@@ -15,6 +13,10 @@ from golem.webdriver import (GolemChromeDriver,
                              GolemIeDriver,
                              GolemOperaDriver,
                              GolemRemoteDriver)
+
+
+class InvalidBrowserIdError(Exception):
+    pass
 
 
 def element(*args, **kwargs):
@@ -34,12 +36,19 @@ def open_browser(browser_id=None):
 
     When opening more than one browser instance per test
     provide a browser_id to switch between browsers later on
+
+    :Raises:
+      - InvalidBrowserIdError: The browser Id is already in use
+
+    :Returns:
+      the opened browser
     """
     @contextmanager
     def validate_exec_path(browser_name, exec_path_setting, settings):
         executable_path = settings[exec_path_setting]
         if executable_path:
-            matched_executable_path = utils.match_latest_executable_path(executable_path)
+            matched_executable_path = utils.match_latest_executable_path(executable_path,
+                                                                         execution.testdir)
             if matched_executable_path:
                 try:
                     yield matched_executable_path
@@ -69,10 +78,19 @@ def open_browser(browser_id=None):
             raise Exception(msg)
 
     driver = None
+
+    if not browser_id:
+        if len(execution.browsers) == 0:
+            browser_id = 'main'
+        else:
+            browser_id = 'browser{}'.format(len(execution.browsers))
+    if browser_id in execution.browsers:
+        raise InvalidBrowserIdError("browser id '{}' is already in use".format(browser_id))
+
     browser_definition = execution.browser_definition
     settings = execution.settings
     # remote
-    if browser_definition['remote'] is True:
+    if browser_definition['remote']:
         with validate_remote_url(settings['remote_url']) as remote_url:
             driver = GolemRemoteDriver(command_executor=remote_url,
                                        desired_capabilities=browser_definition['capabilities'])
@@ -80,15 +98,11 @@ def open_browser(browser_id=None):
     elif browser_definition['name'] == 'chrome':
         with validate_exec_path('chrome', 'chromedriver_path', settings) as ex_path:
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--start-maximized')
-            chrome_options.add_argument('--disable-infobars')
+
+            if settings['start_maximized']:
+                chrome_options.add_argument('start-maximized')
             driver = GolemChromeDriver(executable_path=ex_path,
                                        chrome_options=chrome_options)
-    # Chrome remote
-    elif browser_definition['name'] == 'chrome-remote':
-        with validate_remote_url(settings['remote_url']) as remote_url:
-            driver = GolemRemoteDriver(command_executor=remote_url,
-                                       desired_capabilities=DesiredCapabilities.CHROME)
     # Chrome headless
     elif browser_definition['name'] == 'chrome-headless':
         with validate_exec_path('chrome', 'chromedriver_path', settings) as ex_path:
@@ -97,13 +111,18 @@ def open_browser(browser_id=None):
             chrome_options.add_argument('--window-size=1600,1600')
             driver = GolemChromeDriver(executable_path=ex_path,
                                        chrome_options=chrome_options)
+    # Chrome remote
+    elif browser_definition['name'] == 'chrome-remote':
+        with validate_remote_url(settings['remote_url']) as remote_url:
+            driver = GolemRemoteDriver(command_executor=remote_url,
+                                       desired_capabilities=DesiredCapabilities.CHROME.copy())
     # Chrome remote headless
     elif browser_definition['name'] == 'chrome-remote-headless':
-        with validate_remote_url(settings) as remote_url:
+        with validate_remote_url(settings['remote_url']) as remote_url:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('headless')
             desired_capabilities = chrome_options.to_capabilities()
-            driver = GolemChromeDriver(command_executor=remote_url,
+            driver = GolemRemoteDriver(command_executor=remote_url,
                                        desired_capabilities=desired_capabilities)
     # Edge
     elif browser_definition['name'] == 'edge':
@@ -118,11 +137,25 @@ def open_browser(browser_id=None):
     elif browser_definition['name'] == 'firefox':
         with validate_exec_path('firefox', 'geckodriver_path', settings) as ex_path:
             driver = GolemGeckoDriver(executable_path=ex_path)
+    # Firefox headless
+    elif browser_definition['name'] == 'firefox-headless':
+        with validate_exec_path('firefox', 'geckodriver_path', settings) as ex_path:
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.headless = True
+            driver = GolemGeckoDriver(executable_path=ex_path, firefox_options=firefox_options)
     # Firefox remote
     elif browser_definition['name'] == 'firefox-remote':
         with validate_remote_url(settings['remote_url']) as remote_url:
             driver = GolemRemoteDriver(command_executor=remote_url,
                                        desired_capabilities=DesiredCapabilities.FIREFOX)
+    # Firefox remote headless
+    elif browser_definition['name'] == 'firefox-remote-headless':
+        with validate_remote_url(settings['remote_url']) as remote_url:
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.headless = True
+            desired_capabilities = firefox_options.to_capabilities()
+            driver = GolemRemoteDriver(command_executor=remote_url,
+                                       desired_capabilities=desired_capabilities)
     # IE
     elif browser_definition['name'] == 'ie':
         with validate_exec_path('internet explorer', 'iedriver_path', settings) as ex_path:
@@ -131,7 +164,7 @@ def open_browser(browser_id=None):
     elif browser_definition['name'] == 'ie-remote':
         with validate_remote_url(settings['remote_url']) as remote_url:
             driver = GolemRemoteDriver(command_executor=remote_url,
-                                       desired_capabilities=DesiredCapabilities.IE)
+                                       desired_capabilities=DesiredCapabilities.INTERNETEXPLORER)
     # Opera
     elif browser_definition['name'] == 'opera':
         with validate_exec_path('opera', 'operadriver_path', settings) as ex_path:
@@ -144,31 +177,25 @@ def open_browser(browser_id=None):
         with validate_remote_url(settings['remote_url']) as remote_url:
             driver = GolemRemoteDriver(command_executor=remote_url,
                                        desired_capabilities=DesiredCapabilities.OPERA)
-    # Safari
-    # elif browser_definition['name'] == 'safari':
-    #     with validate_exec_path('safari', 'safaridriver_path', settings) as ex_path:
-    #         driver = GolemSafariDriver(executable_path=ex_path)
-    # Safari remote
-    # elif browser_definition['name'] == 'safari-remote':
-    #     with validate_remote_url(settings['remote_url']) as remote_url:
-    #         driver = GolemRemoteDriver(command_executor=remote_url,
-    #                                   desired_capabilities=DesiredCapabilities.SAFARI)
     else:
         raise Exception('Error: {} is not a valid driver'.format(browser_definition['name']))
 
-    driver.maximize_window()
+    if settings['start_maximized']:
+        # currently there is no way to maximize chrome window on OSX (chromedriver 2.43), adding workaround
+        # https://bugs.chromium.org/p/chromedriver/issues/detail?id=2389
+        # https://bugs.chromium.org/p/chromedriver/issues/detail?id=2522
+        # TODO: assess if this work-around is still needed when chromedriver 2.44 is released
+        is_mac = 'mac' in driver.capabilities.get('platform', '').lower()
+        if not ('chrome' in browser_definition['name'] and is_mac):
+            driver.maximize_window()
 
-    if not browser_id:
-        if len(execution.browsers) == 0:
-            browser_id = 'main'
-        else:
-            browser_id = 'browser{}'.format(len(execution.browsers))
     execution.browsers[browser_id] = driver
-    if not execution.browser:
-        execution.browser = driver
+    # Set the new browser as the active browser
+    execution.browser = driver
+    return execution.browser
 
 
-def get_browser():
+def get_browser() -> GolemRemoteDriver:
     """Returns the active browser. Starts a new one if there is none."""
     if not execution.browser:
         open_browser()
@@ -177,10 +204,17 @@ def get_browser():
 
 def activate_browser(browser_id):
     """Activate a browser.
-    Only needed when the test starts more than one browser instance."""
-    if not browser_id in execution.browsers:
-        # TODO, use error() function
-        raise Exception("Error: {} is not a valid browser id. Current browsers "
-                        "are: {}".format(browser_id, ', '.join(execution.browsers.keys())))
+    Only needed when the test starts more than one browser instance.
+
+    :Raises:
+      - InvalidBrowserIdError: The browser Id does not correspond to an opened browser
+
+    :Returns:
+      the active browser
+    """
+    if browser_id not in execution.browsers:
+        raise InvalidBrowserIdError("'{}' is not a valid browser id. Current browsers are: {}"
+                                    .format(browser_id, ', '.join(execution.browsers.keys())))
     else:
         execution.browser = execution.browsers[browser_id]
+    return execution.browser

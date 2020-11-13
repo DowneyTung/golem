@@ -1,15 +1,15 @@
 
 
 browsers = [
-    'firefox-remote'
+    'chrome-remote'
 ]
 
 environments = [
     'stage'
 ]
 
-workers = 4
+processes = 2
 
 tests = [
-    '*'
+    'click_on_spin_btn_test'
 ]

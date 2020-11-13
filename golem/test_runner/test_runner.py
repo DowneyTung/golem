@@ -1,12 +1,17 @@
 """This module contains the method for running a single test."""
 import sys
 import os
-import importlib
 import time
 import traceback
 
-from golem.core import report, utils
-from golem.test_runner.test_runner_utils import import_page_into_test_module
+from golem.core import utils, session
+from golem.core.test import Test
+from golem.core.project import Project
+from golem.test_runner.test_runner_utils import import_page_into_test
+from golem.test_runner import test_logger
+from golem.test_runner.conf import ResultsEnum
+from golem import actions, execution
+from golem.report import test_report
 
 
 class Data(dict):
@@ -19,164 +24,293 @@ class Data(dict):
     __delattr__ = dict.__delitem__
 
 
-def run_test(workspace, project, test_name, test_data, browser,
-             settings, report_directory):
-    """Runs a single test"""
-    result = {
-        'result': 'pass',
-        'error': '',
-        'description': '',
-        'steps': [],
-        'test_elapsed_time': None,
-        'test_timestamp': None,
-        'browser': '',
-        'browser_full_name': '',
-        'set_name': '',
-    }
+class Secrets(dict):
+    """dot notation access to dictionary attributes"""
+    def __getattr__(*args):
+        val = dict.get(*args)
+        return Secrets(val) if type(val) is dict else val
 
-    from golem.test_runner import execution_logger
-    from golem import actions
-    from golem import execution
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
 
-    # convert test_data to data obj
-    execution.data = Data(test_data)
 
-    # set set_name
-    # set name is the value of 'set_name' if present in the data table
-    # if it is not present, use the value of the first column in the data table
-    # if there's no data in the data table, leave set_name as ''
-    _set_name = ''
+def _get_set_name(test_data):
+    """Get the set_name from test_data
+    Return the value of 'set_name' key if present in the data
+    If set_name it is not present in data, return the value of the first key.
+    If there's no data, leave set_name as ''
+    """
+    set_name = ''
     if 'set_name' in test_data:
-        _set_name = test_data['set_name']
-    elif test_data:
+        set_name = test_data['set_name']
+    else:
         data_without_env = dict(test_data)
         data_without_env.pop('env', None)
         if data_without_env:
-            _set_name = test_data[next(iter(data_without_env))]
-    result['set_name'] = _set_name
+            set_name = test_data[next(iter(data_without_env))]
+    return set_name
 
-    logger = execution_logger.get_logger(report_directory,
-                                         settings['console_log_level'],
-                                         settings['log_all_events'])
-    execution.logger = logger
-    # Print execution info to console
-    logger.info('Test execution started: {}'.format(test_name))
-    logger.info('Browser: {}'.format(browser['name']))
-    if 'env' in test_data:
-        if 'name' in test_data['env']:
-            logger.info('Environment: {}'.format(test_data['env']['name']))
-    if test_data:
-        data_string = '\n'
-        for key, value in test_data.items():
-            if key == 'env':
-                if 'url' in value:
-                    data_string += '    {}: {}\n'.format('url', value['url'])
+
+def run_test(testdir, project, test_name, test_data, secrets, browser, env_name,
+             settings, report_directory, execution_has_failed_tests=None,
+             tags=None, from_suite=False):
+    """Run a single test"""
+    session.testdir = testdir
+    runner = TestRunner(testdir, project, test_name, test_data, secrets, browser, env_name,
+                        settings, report_directory, execution_has_failed_tests,
+                        tags, from_suite)
+    runner.prepare()
+
+
+class TestRunner:
+
+    __test__ = False  # ignore this class from Pytest
+
+    def __init__(self, testdir, project, test_name, test_data, secrets, browser, env_name,
+                 settings, report_directory, execution_has_failed_tests=None,
+                 tags=None, from_suite=False):
+        self.result = {
+            'result': None,
+            'errors': [],
+            'description': '',
+            'steps': [],
+            'test_elapsed_time': None,
+            'test_timestamp': None,
+            'browser': '',
+            'browser_full_name': '',
+            'set_name': '',
+        }
+        self.testdir = testdir
+        self.project = Project(project)
+        self.test = Test(project, test_name)
+        self.test_data = test_data
+        self.secrets = secrets
+        self.browser = browser
+        self.env_name = env_name
+        self.settings = settings
+        self.report_directory = report_directory
+        self.test_module = None
+        self.test_timestamp = utils.get_timestamp()
+        self.test_start_time = time.time()
+        self.logger = None
+        self.execution_has_failed_tests = execution_has_failed_tests
+        self.execution_tags = tags or []
+        self.from_suite = from_suite
+
+    def prepare(self):
+        self.result['set_name'] = _get_set_name(self.test_data)
+        # initialize logger
+        self.logger = test_logger.get_logger(self.report_directory,
+                                             self.settings['cli_log_level'],
+                                             self.settings['log_all_events'])
+        # set execution module values
+        self._set_execution_module_values()
+        self._print_test_info()
+        # add the 'project' directory to python path
+        # to enable relative imports from the test
+        # TODO
+        sys.path.append(os.path.join(self.testdir, 'projects', self.project.path))
+        self.import_modules()
+
+    def import_modules(self):
+        test_module, error = utils.import_module(self.test.path)
+        if error:
+            actions._add_error(message=error.splitlines()[-1], description=error)
+            self.result['result'] = ResultsEnum.CODE_ERROR
+        else:
+            self.test_module = test_module
+            # import logger
+            setattr(self.test_module, 'logger', execution.logger)
+
+            # import actions module
+            if self.settings['implicit_actions_import']:
+                for action in utils.module_local_public_functions(actions):
+                    setattr(self.test_module, action, getattr(actions, action))
+
+            # store test description
+            if hasattr(self.test_module, 'description'):
+                execution.description = self.test_module.description
+
+            # import pages
+            try:
+                if hasattr(self.test_module, 'pages') and self.settings['implicit_page_import']:
+                    base_path = self.project.page_directory_path
+                    for page in self.test_module.pages:
+                        self.test_module = import_page_into_test(base_path, self.test_module,
+                                                                 page.split('.'))
+            except Exception as e:
+                message = '{}: {}'.format(e.__class__.__name__, e)
+                trcbk = traceback.format_exc()
+                actions._add_error(message=message, description=trcbk)
+                self.result['result'] = ResultsEnum.CODE_ERROR
+
+            # check for skip flag
+            # test is skipped only when run from a suite
+            skip = getattr(self.test_module, 'skip', False)
+            if skip and self.from_suite:
+                self.result['result'] = ResultsEnum.SKIPPED
+                msg = 'Skip: {}'.format(skip) if type(skip) is str else 'Skip'
+                execution.logger.info(msg)
+
+        if self.result['result'] in [ResultsEnum.CODE_ERROR, ResultsEnum.SKIPPED]:
+            self.finalize()
+        else:
+            self.run_setup()
+
+    def run_setup(self):
+        try:
+            if hasattr(self.test_module, 'setup'):
+                self.test_module.setup(execution.data)
             else:
-                data_string += '    {}: {}\n'.format(key, value)
-        logger.info('Using data: {}'.format(data_string))
-
-    test_timestamp = utils.get_timestamp()
-    test_start_time = time.time()
-    execution.project = project
-    execution.workspace = workspace
-    execution.browser_definition = browser
-    execution.settings = settings
-    execution.report_directory = report_directory
-
-    # add the 'project' directory to python path
-    # so it's possible to make relative imports from the test
-    # example: some_test.py
-    # from pages import some_page
-    sys.path.append(os.path.join(workspace, 'projects', project))
-
-    test_module = None
-
-    try:
-        if '/' in test_name:
-            test_name = test_name.replace('/', '.')
-        test_module = importlib.import_module(
-            'projects.{0}.tests.{1}'.format(project, test_name))
-
-        # import each page into the test_module
-        if hasattr(test_module, 'pages'):
-            for page in test_module.pages:
-                test_module = import_page_into_test_module(project, test_module,
-                                                           page)
-        # import logger into the test module
-        setattr(test_module, 'logger', execution.logger)
-        # import actions into the test module
-        for action in dir(actions):
-            setattr(test_module, action, getattr(actions, action))
-        # store test description
-        if hasattr(test_module, 'description'):
-            execution.description = test_module.description
+                execution.logger.debug('test does not have setup function')
+        except AssertionError as e:
+            self._add_error(message='Failure', exception=e)
+            self.result['result'] = ResultsEnum.FAILURE
+        except Exception as e:
+            self._add_error(message='Error', exception=e)
+            self.result['result'] = ResultsEnum.CODE_ERROR
+        if self.result['result'] in [ResultsEnum.CODE_ERROR, ResultsEnum.FAILURE]:
+            self.run_teardown()
         else:
-            logger.debug('Test does not have description')
-        # run setup method
-        if hasattr(test_module, 'setup'):
-            test_module.setup(execution.data)
-        else:
-            logger.debug('Test does not have setup function')
-        # run test method
-        if hasattr(test_module, 'test'):
-            test_module.test(execution.data)
-        else:
-            raise Exception('Test does not have test function')
+            self.run_test()
 
-        if settings['screenshot_on_end'] and execution.browser:
-            actions.capture('test end')
-    except:
-        result['result'] = 'fail'
-        result['error'] = traceback.format_exc()
+    def run_test(self):
         try:
-            if settings['screenshot_on_error'] and execution.browser:
-                actions.capture('error')
+            if hasattr(self.test_module, 'test'):
+                self.test_module.test(execution.data)
+                # take screenshot_on_end
+                if self.settings['screenshot_on_end'] and execution.browser:
+                    actions.take_screenshot('Test end')
+            else:
+                error_msg = 'test {} does not have a test function'.format(self.test.name)
+                actions._add_error(error_msg)
+                self.result['result'] = ResultsEnum.CODE_ERROR
+        except AssertionError as e:
+            self._add_error(message='Failure', exception=e)
+            self.result['result'] = ResultsEnum.FAILURE
+        except Exception as e:
+            if not self.result['result'] == ResultsEnum.FAILURE:
+                self.result['result'] = ResultsEnum.CODE_ERROR
+            self._add_error(message='Error', exception=e)
+        self.run_teardown()
+
+    def run_teardown(self):
+        try:
+            if hasattr(self.test_module, 'teardown'):
+                self.test_module.teardown(execution.data)
+            else:
+                execution.logger.debug('test does not have a teardown function')
+        except AssertionError as e:
+            if not self.result['result'] == ResultsEnum.CODE_ERROR:
+                self.result['result'] = ResultsEnum.FAILURE
+            self._add_error(message='Failure', exception=e)
+        except Exception as e:
+            if not self.result['result'] == ResultsEnum.FAILURE:
+                self.result['result'] = ResultsEnum.CODE_ERROR
+            self._add_error(message='Error', exception=e)
+        # if there is no teardown or teardown failed or it did not close the driver,
+        # let's try to close the driver manually
+        if execution.browser:
+            try:
+                for browser, driver in execution.browsers.items():
+                    driver.quit()
+            except:
+                # if this fails, we have lost control over the webdriver window
+                # and we are not going to be able to close it
+                execution.logger.error('there was an error closing the driver',
+                                       exc_info=True)
+            finally:
+                execution.browser = None
+        self.finalize()
+
+    def finalize(self):
+        test_end_time = time.time()
+        test_elapsed_time = round(test_end_time - self.test_start_time, 2)
+        if self.result['result'] not in [ResultsEnum.CODE_ERROR, ResultsEnum.FAILURE]:
+            if execution.errors:
+                self.result['result'] = ResultsEnum.ERROR
+
+        if self.result['result'] is None:
+            self.result['result'] = ResultsEnum.SUCCESS
+        execution.logger.info('Test Result: {}'.format(self.result['result'].upper()))
+
+        self.result['description'] = execution.description
+        self.result['steps'] = execution.steps
+        self.result['errors'] = execution.errors
+        self.result['test_elapsed_time'] = test_elapsed_time
+        self.result['test_timestamp'] = self.test_timestamp
+        self.result['browser'] = execution.browser_definition['name']
+        self.result['browser_full_name'] = execution.browser_definition['full_name']
+        # Report a test has failed in the test execution, this will later determine the exit status
+        _error_codes = [ResultsEnum.CODE_ERROR, ResultsEnum.ERROR, ResultsEnum.FAILURE]
+        if self.execution_has_failed_tests is not None and self.result['result'] in _error_codes:
+            self.execution_has_failed_tests.value = True
+        test_report.generate_report(self.report_directory, self.test.name, execution.data, self.result)
+        test_logger.reset_logger(execution.logger)
+        # execution._reset()
+
+    def _set_execution_module_values(self):
+        execution.browser = None
+        execution.browser_definition = self.browser
+        execution.browsers = {}
+        execution.steps = []
+        execution.data = Data(self.test_data)
+        execution.secrets = Secrets(self.secrets)
+        execution.description = None
+        execution.errors = []
+        execution.settings = self.settings
+        execution.test_name = self.test.name
+        execution.test_dirname = self.test.dirname
+        execution.test_path = self.test.path
+        execution.project_name = self.project.name
+        execution.project_path = self.project.path
+        execution.testdir = self.testdir
+        execution.report_directory = self.report_directory
+        execution.logger = self.logger
+        execution.tags = self.execution_tags
+        execution.environment = self.env_name
+
+    def _print_test_info(self):
+        execution.logger.info('Test execution started: {}'.format(self.test.name))
+        execution.logger.info('Browser: {}'.format(self.browser['name']))
+        if 'env' in self.test_data:
+            if 'name' in self.test_data['env']:
+                execution.logger.info('Environment: {}'
+                                      .format(self.test_data['env']['name']))
+        if self.test_data:
+            data_string = ''
+            for key, value in self.test_data.items():
+                if key == 'env':
+                    if 'url' in value:
+                        data_string += '\n    {}: {}'.format('url', value['url'])
+                else:
+                    data_string += '\n    {}: {}'.format(key, value)
+            execution.logger.info('Using data:{}'.format(data_string))
+
+    def _add_error(self, message, exception):
+        """Add an error to the test from an exception.
+          * Add a new step with `message`, don't log it
+          * Add an error using:
+              - message -> 'exception.__class__.__name__: exception'
+                e.g.: 'AssertionError: expected title to be 'foo'
+              - description -> traceback.format_exc()
+          * Append the error to the last step
+          * Log the error
+          * Take a screenshot if screenshot_on_error == True and
+            there is an open browser
+        """
+        actions._add_step(message, log_step=False)
+        error_message = '{}: {}'.format(exception.__class__.__name__, exception)
+        trcbk = traceback.format_exc()
+        actions._add_error(message=error_message, description=trcbk)
+        actions._append_error(message=error_message, description=trcbk)
+        self._take_screeenshot_on_error()
+
+    def _take_screeenshot_on_error(self):
+        """Take a screenshot only if there is a browser available"""
+        try:
+            if self.settings['screenshot_on_error'] and execution.browser:
+                actions._screenshot_on_error()
         except:
-            # if the test failed and driver is not available
-            # capture screenshot is not possible, continue
+            # if the driver is not available capture screenshot is not possible
             pass
-
-        logger.error('An error ocurred:', exc_info=True)
-
-    try:
-        if hasattr(test_module, 'teardown'):
-            test_module.teardown(execution.data)
-        else:
-            logger.debug('Test does not have a teardown function')
-    except:
-        result['result'] = 'fail'
-        result['error'] += '\n\nteardown failed'
-        result['error'] += '\n' + traceback.format_exc()
-        logger.error('An error ocurred in the teardown:', exc_info=True)
-
-    # if there is no teardown or teardown failed or it did not close the driver,
-    # let's try to close the driver manually
-    if execution.browser:
-        try:
-            for browser, driver in execution.browsers.items():
-                driver.quit()
-        except:
-            # if this fails, we have lost control over the webdriver window
-            # and we are not going to be able to close it
-            logger.error('There was an error closing the driver')
-            logger.error(traceback.format_exc())
-        finally:
-            execution.browser = None
-
-    test_end_time = time.time()
-    test_elapsed_time = round(test_end_time - test_start_time, 2)
-
-    if not result['error']:
-        logger.info('Test passed')
-    result['description'] = execution.description
-    result['steps'] = execution.steps
-    result['test_elapsed_time'] = test_elapsed_time
-    result['test_timestamp'] = test_timestamp
-    result['browser'] = execution.browser_definition['name']
-    result['browser_full_name'] = execution.browser_definition['full_name']
-    
-    report.generate_report(report_directory, test_name, execution.data, result)
-    
-    execution.reset()
-    execution_logger.reset_logger(logger)
-    return

@@ -1,18 +1,20 @@
 Suites
 ==================================================
 
+A suite can execute a set of tests with the specified configuration.
+For example, running the most important tests or the tests for a specific module.
+It can define which browsers to use and how many tests should run in parallel.
 
-A suite lets you arbitrarily select a sub-set of tests to execute as a group. Let's say, you want to test only the most important tests, or the tests for a specific module. In that ocasion, you use a suite.
-
-A suite contains a list of *tests*, a list of *browsers* and the amount of *workers*. Consider the following example:
-
+A suite contains a list of *tests*, a list of *browsers*, a list of *environments* and the number of *processes*. Consider the following example:
 
 **full_regression.py**
 ```python
 
 browsers = ['firefox', 'chrome']
 
-workers = 2
+environments = []
+
+processes = 2
 
 tests = [
     'test1',
@@ -26,13 +28,15 @@ tests = [
 
 <div class="admonition note">
     <p class="first admonition-title">Note</p>
-    <p>This suite will execute all marked tests, once per each browser and test set</p>
+    <p>This suite will execute all marked tests, once per each browser, environment and test set</p>
 </div>
 
 
-##### Test Parallelization
+### Test Parallelization
 
-The 'workers = 2' tells Golem how many tests should be executed at the same time. Default is one (one at a time). How many tests can be parallelized depends on your test infrastructure.
+The 'processes = 2' tells Golem how many tests should be executed at the same time. The default is one (one at a time). How many tests can be parallelized depends on your test infrastructure.
 
 
-Next, go to [Golem Actions](golem-actions.html)
+### Environments
+
+Environments are defined in the environments.json file inside a project

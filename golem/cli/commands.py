@@ -1,39 +1,58 @@
 import os
 import sys
 
-from golem.core import (utils,
-                        test_execution,
-                        suite as suite_module,
-                        test_case,
-                        settings_manager)
+import golem
+from golem.core import errors
+from golem.core import session
+from golem.core import settings_manager
+from golem.core import suite as suite_module
+from golem.core import test
+from golem.core import test_directory
+from golem.core import utils
+from golem.core.project import Project, create_project
+from golem.core.settings_manager import get_global_settings
+from golem.execution_runner import interactive as interactive_module
+from golem.execution_runner.execution_runner import ExecutionRunner
+from golem.gui.user_management import Users
 from golem.gui import gui_start
-from golem.test_runner import (start_execution,
-                               interactive as interactive_module)
-from .argument_parser import get_parser
 from . import messages
 
 
-def command_dispatcher(args):
+def command_dispatcher(args, testdir):
+    # Use --golem-dir arg if set
+    if args.golem_dir is not None:
+        testdir = os.path.abspath(args.golem_dir)
+    session.testdir = testdir
+
     if args.help:
         display_help(args.help, args.command)
-    elif args.command == 'run':
-        run_command(args.project, args.test_or_suite,
-                    args.browsers, args.threads,
-                    args.environments, args.interactive,
-                    args.timestamp)
-    elif args.command == 'gui':
-        gui_command(args.port)
-    elif args.command == 'createproject':
-        createproject_command(args.project)
-    elif args.command == 'createtest':
-        createtest_command(args.project, args.test)
-    elif args.command == 'createsuite':
-        createsuite_command(args.project, args.suite)
-    elif args.command == 'createuser':
-        createuser_command(args.username, args.password,
-                           args.admin, args.projects, args.reports)
-    elif args.command == None:
-        print(messages.USAGE_MSG)
+    elif args.command is None:
+        if args.version:
+            display_version()
+        else:
+            print(messages.USAGE_MSG)
+    else:
+        # It needs a valid Golem test directory from now on
+        if not test_directory.is_valid_test_directory(testdir):
+            sys.exit(errors.invalid_test_directory.format(testdir))
+        # Read global settings
+        session.settings = get_global_settings()
+        if args.command == 'run':
+            run_command(args.project, args.test_query, args.browsers, args.processes,
+                        args.environments, args.interactive, args.timestamp, args.report,
+                        args.report_folder, args.report_name, args.tags, args.cli_log_level)
+        elif args.command == 'gui':
+            gui_command(args.host, args.port, args.debug)
+        elif args.command == 'createproject':
+            createproject_command(args.project)
+        elif args.command == 'createtest':
+            createtest_command(args.project, args.test)
+        elif args.command == 'createsuite':
+            createsuite_command(args.project, args.suite)
+        elif args.command == 'createuser':
+            createuser_command()
+        elif args.command == 'createsuperuser':
+            createsuperuser_command(args.username, args.email, args.password, args.noinput)
 
 
 def display_help(help, command):
@@ -47,132 +66,165 @@ def display_help(help, command):
         print(messages.CREATETEST_USAGE_MSG)
     elif help == 'createsuite' or command == 'createsuite':
         print(messages.CREATESUITE_USAGE_MSG)
-    elif help == 'createuser' or command == 'createuser':
-        print(messages.CREATEUSER_USAGE_MSG)
+    elif help == 'createsuperuser' or command == 'createsuperuser':
+        print(messages.CREATESUPERUSER_USAGE_MSG)
     else:
         print(messages.USAGE_MSG)
 
 
-def run_command(project='', test_or_suite='', browsers=[], threads=1,
-                environments=[], interactive=False, timestamp=None):
-    test_execution.thread_amount = threads
-    test_execution.cli_drivers = browsers
-    test_execution.cli_environments = environments
-    test_execution.timestamp = timestamp
-    test_execution.interactive = interactive
-    root_path = test_execution.root_path
+def run_command(project='', test_query='', browsers=None, processes=1,
+                environments=None, interactive=False, timestamp=None,
+                reports=None, report_folder=None, report_name=None,
+                tags=None, cli_log_level=None):
+    execution_runner = ExecutionRunner(browsers, processes, environments, interactive,
+                                       timestamp, reports, report_folder, report_name, tags)
     if project:
-        existing_projects = utils.get_projects(root_path)
-        if project in existing_projects:
-            test_execution.project = project
-            settings = settings_manager.get_project_settings(root_path, project)
-            test_execution.settings = settings
-            # settings are accessible from a test
-            # test_execution is not accessible from a test
-            # the test needs to know if interactive is true
-            test_execution.settings['interactive'] = interactive
-            if test_or_suite:
-                if suite_module.suite_exists(root_path, test_execution.project,
-                                         test_or_suite):
-                    test_execution.suite = test_or_suite
-                    # execute test suite
-                    start_execution.run_test_or_suite(root_path,
-                                                      test_execution.project,
-                                                      suite=test_execution.suite)
-                elif test_case.test_case_exists(root_path, test_execution.project,
-                                                test_or_suite):
-                    test_execution.test = test_or_suite
-                    # execute test case
-                    start_execution.run_test_or_suite(root_path,
-                                                      test_execution.project,
-                                                      test=test_execution.test)
+        if test_directory.project_exists(project):
+            execution_runner.project = project
+            session.settings = settings_manager.get_project_settings(project)
+            # add --interactive value to settings to make
+            # it available from inside a test
+            session.settings['interactive'] = interactive
+            # override cli_log_level setting if provided by the CLI
+            if cli_log_level:
+                session.settings['cli_log_level'] = cli_log_level.upper()
+            if test_query:
+                norm_query = utils.normalize_query(test_query)
+                if suite_module.Suite(project, norm_query).exists:
+                    execution_runner.run_suite(norm_query)
+                elif test.Test(project, norm_query).exists:
+                    execution_runner.run_test(norm_query)
                 else:
-                    # TODO run directory
-                    # test_or_suite does not match any existing suite or test
-                    msg = ('golem run: error: the value {0} does not match an existing '
-                           'test or suite'.format(test_or_suite))
-                    sys.exit(msg)
+                    if test_query == '.':
+                        test_query = ''
+                    path = os.path.join(session.testdir, 'projects',
+                                        project, 'tests', test_query)
+                    if os.path.isdir(path):
+                        execution_runner.run_directory(test_query)
+                    else:
+                        msg = ('golem run: error: the value {} does not match '
+                               'an existing test, suite or directory'.format(test_query))
+                        sys.exit(msg)
             else:
                 print(messages.RUN_USAGE_MSG)
-                test_cases = utils.get_test_cases(root_path, project)
-                print('Test Cases:')
-                utils.display_tree_structure_command_line(test_cases['sub_elements'])
-                test_suites = utils.get_suites(root_path, project)
+                tests = Project(project).test_tree
+                print('Tests:')
+                utils.display_tree_structure_command_line(tests['sub_elements'])
+                suites = Project(project).suite_tree
                 print('\nTest Suites:')
                 # TODO print suites in structure
-                for suite in test_suites['sub_elements']:
+                for suite in suites['sub_elements']:
                     print('  ' + suite['name'])
         else:
-            msg = ('golem run: error: the project {0} does not exist'.format(project))
+            msg = ('golem run: error: the project {} does not exist'.format(project))
             sys.exit(msg)
-
-    elif test_execution.interactive:
-        interactive_module.interactive(test_execution.settings,
-                                       test_execution.cli_drivers)
+    elif interactive:
+        interactive_module.interactive(session.settings, browsers)
     else:
         print(messages.RUN_USAGE_MSG)
         print('Projects:')
-        for proj in utils.get_projects(root_path):
-            print('  {}'.format(proj))
+        for project in test_directory.get_projects():
+            print('  {}'.format(project))
 
 
-def gui_command(port=5000):
-    gui_start.run_gui(port)
+def gui_command(host=None, port=5000, debug=False):
+    gui_start.run_gui(host, port, debug)
 
 
 def createproject_command(project):
-    root_path = test_execution.root_path
-
-    if project in utils.get_projects(root_path):
+    if test_directory.project_exists(project):
         msg = ('golem createproject: error: a project with name \'{}\' already exists'
                .format(project))
         sys.exit(msg)
     else:
-        utils.create_new_project(root_path, project)
+        create_project(project)
 
 
-def createtest_command(project, test):
-    root_path = test_execution.root_path
-
-    if project not in utils.get_projects(root_path):
+def createtest_command(project, test_name):
+    if not test_directory.project_exists(project):
         msg = ('golem createtest: error: a project with name {} '
                'does not exist'.format(project))
         sys.exit(msg)
-    dot_path = test.split('.')
-    test_name = dot_path.pop()
-    errors = test_case.new_test_case(root_path, project,
-                                     dot_path, test_name)
+    test_name = test_name.replace(os.sep, '.')
+    errors = test.create_test(project, test_name)
     if errors:
         sys.exit('golem createtest: error: {}'.format(' '.join(errors)))
 
 
 def createsuite_command(project, suite_name):
-    if project not in utils.get_projects(test_execution.root_path):
+    if not test_directory.project_exists(project):
         msg = ('golem createsuite: error: a project with name {} '
                'does not exist'.format(project))
         sys.exit(msg)
-    errors = suite_module.new_suite(test_execution.root_path,
-                             project, [], suite_name)
+    errors = suite_module.create_suite(project, suite_name)
     if errors:
         sys.exit('golem createsuite: error: {}'.format(' '.join(errors)))
 
 
-def createuser_command(username, password, is_admin=False,
-                       projects=[], reports=[]):
-    errors = utils.create_user(test_execution.root_path, username,
-                               password, is_admin, projects, reports)
+# TODO deprecated
+def createuser_command():
+    sys.exit('Error: createuser command is deprecated. Use createsuperuser instead.')
+
+
+def createsuperuser_command(username, email, password, no_input=False):
+    if no_input:
+        if username is None or password is None:
+            sys.exit('Error: --username and --password are required for --noinput.')
+    else:
+        try:
+            while True:
+                username = input('Username: ').strip()
+                if username:
+                    break
+            while True:
+                email = input('Email address (optional): ').strip()
+                if email and not utils.validate_email(email):
+                    print('Error: Enter a valid email address.')
+                else:
+                    break
+            while True:
+                password = input('Password: ')
+                repeat_password = input('Password (again): ')
+                if not len(password):
+                    print('Error: Blank passwords are not allowed.')
+                elif password != repeat_password:
+                    print('Error: The passwords did not match.')
+                else:
+                    break
+        except KeyboardInterrupt:
+            sys.exit('Cancelled.')
+    errors = Users.create_super_user(username, password, email)
     if errors:
-        sys.exit('golem createuser: error: {}'.format(' '.join(errors)))
+        for error in errors:
+            print('Error: {}'.format(error))
+        exit(1)
     else:
-        print('User {} was created successfully'.format(username))
+        print('Superuser {} was created successfully.'.format(username))
 
 
-def createdirectory_command(dir_name):
-    """Generate a new 'golem' directory"""
-    if os.path.exists(dir_name):
-        msg = ('golem-admin createdirectory: error: the directory {} '
-               'already exists'.format(dir_name))
-        sys.exit(msg)
-    else:
-        destination = os.path.join(os.getcwd(), dir_name)
-        utils.create_test_dir(destination)
+def createdirectory_command(dir_name, no_confirm=False):
+    """Create a new Golem test directory
+
+    dir_name must be an absolute or relative path.
+    If the path exists and is not empty and no_confirm
+    is False the user will be prompted to continue.
+    """
+    abspath = os.path.abspath(dir_name)
+    if os.path.exists(abspath) and os.listdir(abspath):
+        # directory is not empty
+        if not no_confirm:
+            msg = 'Directory {} is not empty, continue? [Y/n]'.format(dir_name)
+            if not utils.prompt_yes_no(msg):
+                return
+        if os.path.isfile(os.path.join(abspath, '.golem')):
+            sys.exit('Error: target directory is already an existing Golem test directory')
+    session.testdir = abspath
+    test_directory.create_test_directory(abspath)
+    print('New golem test directory created at {}'.format(abspath))
+    print('Use credentials to access the GUI module:')
+    print('user: admin')
+    print('password: admin')
+
+
+def display_version():
+    print('Golem version {}'.format(golem.__version__))

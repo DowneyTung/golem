@@ -1,14 +1,10 @@
 [
     {
-        "id": "b4b548fe",
+        "id": "82a54ec5",
         "username": "admin",
-        "password": "admin",
-        "is_admin": true,
-        "gui_projects": [
-            "*"
-        ],
-        "report_projects": [
-            "*"
-        ]
+        "password": "pbkdf2:sha256:150000$44flzqsr$09600398de708e4e33c248a4ce5723fd0c41142da6ab673593278686b86ad9c0",
+        "email": null,
+        "is_superuser": true,
+        "projects": {}
     }
 ]

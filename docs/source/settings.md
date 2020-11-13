@@ -1,93 +1,81 @@
 Settings
 ==================================================
 
-Use the settings.json file to configure Golem behavior. There is a global settings.json file and a settings.json file inside each project.
-
-<div class="admonition note">
-    <p class="first admonition-title">Remember</p>
-    <p>The settings defined inside a project will override the global settings for that project</p>
-</div>
-
-#### Settings
+Settings are defined in the settings.json file. They modify certain Golem behaviors.
+There is a global settings.json file and a project settings.json file.
+Note: project settings override global settings.
 
 
-- *search_timeout*
+## Setting List
+
+
+### search_timeout
 
 Default time to wait looking for an element until it is present. Default is 20 seconds.
 
-- *wait_displayed*
+### wait_displayed
 
 Wait for elements to be present and displayed. Default is False
 
-- *screenshot_on_error*
+### screenshot_on_error
 
 Take a screenshot on error by default. Default is True.
 
-- *screenshot_on_step*
+### screenshot_on_step
 
 Take a screenshot on every step. Default is False.
 
-- *screenshot_on_end*
+### screenshot_on_end
 
 Take a screenshot after 'test' function ends. Default is False.
 
-- *test_data*
+### test_data
 
 The location to store test data. Options are: 'infile' and 'csv'. Default is 'csv.'. 
 
 With 'test_data' = 'infile'  data is stored inside the test file as a list of dictionaries. 
 
-With 'test_data' = 'csv' data is stored in a csv file in the same folder of the test and with the same name, e.g.: /tests/some_test.py -> /tests/some_test.csv
+With 'test_data' = 'csv' data is stored in a csv file in the same folder of the test and with the same name, e.g.: /tests/test1.py -> /tests/test1.csv
 
-- *wait_hook*
+### wait_hook
 
 Custom wait method to use for every action, that can be specific to each application. It must be defined inside extend.py
 
-- *default_browser*
+### default_browser
 
-Define the driver to use unless overriden by the -b/--browsers flag. Default is 'chrome'. Valid options are:
+Define the driver to use unless overriden by the -b/--browsers flag. Default is 'chrome'. The valid options are listed [here](browsers.html#valid-options).
 
-1. chrome
-2. chrome-remote
-3. chrome-headless
-4. chrome-remote-headless
-5. firefox
-6. firefox-remote
-7. ie
-8. ie-remote
-9. safari
-10. safari-remote
-11. opera
-12. opera-remote
-13. Any browser defined in remote_browsers
-
-- *chromedriver_path*
+### chromedriver_path
 
 Path to the Chrome driver executable.
 
-- *edgedriver_path*
+### edgedriver_path
 
 Path to the Edge driver executable.
 
-- *geckodriver_path*
+### geckodriver_path
 
 Path to the Gecko driver executable.
 
-- *operadriver_path*
+### iedriver_path
+
+Path to the Internet Explorer driver driver executable.
+
+### operadriver_path
 
 Path to the Opera driver executable.
 
-- *safaridriver_path*
+### opera_binary_path
 
-Path to the Safari driver executable.
+The path to the Opera binary file. Used to fix "Error: cannot find Opera binary" error.
 
-- *remote_url*
+### remote_url
 
 The URL to use when connecting to a remote webdriver, for example, when using selenium grid. Default is 'http://localhost:4444/wd/hub'
 
-- *remote_browsers*
+### remote_browsers
 
-Define a list of remote browsers with it's capabilities, required to run tests with Selenium Grid or another remote device provider such as SauceLabs.
+Defines a list of remote browsers with its capabilities, required to run tests with Selenium Grid or another remote device provider.
 The minimum capabilities required are 'browserName', 'version' and 'platform', read [this](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) for more info.
 
 Example: settings.json
@@ -110,14 +98,55 @@ Example: settings.json
 }
 ```
 
-- *console_log_level*
 
-Default is 'INFO'
+### implicit_actions_import
+Import golem.actions module implicitly to the tests.
+Modifies test saving behavior when using the GUI test builder.
+Default is true.
 
-- *log_all_events*
+### implicit_page_import
+Import pages implicitly to the test from a list of strings.
+When true, imported pages are saved as a list of strings. When false, import statements are used instead.
+Default is true.
+
+### screenshots
+
+Modify screenshot format, size, and quality before saving to disk.
+
+Requires Pillow to be installed. It must be installed separately: ```pip install pillow```
+
+It should be an object with the following attributes: format, quality, width, height, and resize
+
+* **format**: "jpg" or "png". The default is "png".
+* **quality**: an int in 1..95 range. The default is 75. This only applies to "jpg" files.
+* **width**: defines the width of screenshots. If "height" is not set, this will maintain the aspect ratio.
+* **height**: defines the height of screenshots. If "width" is not set, this will maintain the aspect ratio.
+* **resize**: the percentage to resize screenshots. Must be int or string in the format "55" or "55%". To resize by percentage do not set width or height.
+
+Example:
+```JSON
+{
+    "screenshots": {
+        "format": "jpg",
+        "quality": 50,
+        "resize": 70
+    }
+}
+```
+
+### console_log_level
+
+Deprecated, use *cli_log_level*.
+
+### cli_log_level
+
+command line log level.
+Options are: DEBUG, INFO, WARNING, ERROR, CRITICAL. Default is INFO.
+
+### log_all_events
 
 Log all events or just Golem events. Default is true.
 
-<br>
+### start_maximized
 
-Next, go to [Browser Web Drivers](browser-web-drivers.html)
+Start the browser maximized. Default is true.

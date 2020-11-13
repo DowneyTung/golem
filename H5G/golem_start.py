@@ -1,4 +1,5 @@
-import os
+
+ kimport os
 
 from golem.main import execute_from_command_line
 
