@@ -1,4 +1,4 @@
-#H5-Golem - Test Automation Framework
+## H5-Golem - Test Automation Framework
 
 [![Build Status](https://travis-ci.com/golemhq/golem.svg?branch=master)](https://travis-ci.com/golemhq/golem)
 [![Documentation Status](https://readthedocs.org/projects/golem-framework/badge/?version=latest)](https://golem-framework.readthedocs.io/en/latest/?badge=latest)
